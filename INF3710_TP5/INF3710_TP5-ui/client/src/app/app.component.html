@@ -6,11 +6,10 @@
     <a class="navbar-brand title" href="/">INF3710-TP5</a>
     <div class="navbar-expand mr-auto">
       <div class="navbar-nav">
-        <a class="nav-item nav-link active" routerLink="/hotel">Hotels</a>
-        <a class="nav-item nav-link active" routerLink="/room">Rooms</a>
+        <a class="nav-item nav-link active" routerLink="/animal">Animals</a>
       </div>
     </div>
-  </nav>
+</nav>
 
 <div style="text-align:center">
 <div *ngIf="route == ''">
@@ -20,17 +19,23 @@
 <router-outlet></router-outlet>
 
 
-<div id="ht" style="text-align:center" *ngIf="route != '/room'">
-  <button type="button" class="btn btn-primary" (click)="getHotels()">Get Hotels</button>
+<div id="ht" style="text-align:center" *ngIf="route">
+  <button type="button" class="btn btn-primary" (click)="getAnimals()">Get Animals</button>
   <table id ="ht" align="center" border="1" width="350">
     <thead>
-      <th> HOTEL</th>
-      <th> CITY</th>
+      <th> Animal</th>
     </thead>
     <tbody>
-      <tr *ngFor="let hotel of hotels">
-        <td> {{hotel.hotelname}}</td>
-        <td> {{hotel.city}} </td>
+      <tr *ngFor="let animal of animals">
+        <td> {{animal.numero}}</t>
+        <td> {{animal.proprietaireNumero}}</td>
+        <td> {{animal.cliniqueNumero}}</td>
+        <td> {{animal.nom}}</td>
+        <td> {{animal.type}}</td>
+        <td> {{animal.description}}</td>
+        <td> {{animal.etatActual}}</td>
+        <td> {{animal.dateNaissance}}</td>
+        <td> {{animal.dateInscription}}</td>
       </tr>
     </tbody>
   </table>

@@ -2,8 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as pg from "pg";
 
-import {Hotel} from "../../../common/tables/Hotel";
-import {Room} from '../../../common/tables/Room';
+import { Animal } from "../../../common/tables/Animal";
 
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
@@ -35,92 +34,56 @@ export class DatabaseController {
                     });
         });
 
-        router.get("/hotel",
+        router.get("/animal",
                    (req: Request, res: Response, next: NextFunction) => {
                     // Send the request to the service and send the response
-                    this.databaseService.getHotels().then((result: pg.QueryResult) => {
-                    const hotels: Hotel[] = result.rows.map((hot: any) => (
+                    this.databaseService.getAnimals().then((result: pg.QueryResult) => {
+                    const animals: Animal[] = result.rows.map((animal: any) => (
                         {
-                        hotelno: hot.hotelno,
-                        hotelname: hot.hotelname,
-                        city: hot.city
+                            numero: animal.numero,
+                            cliniqueNumero: animal.cliniqueNumero,
+                            proprietaireNumero: animal.proprietaireNumero,
+                            nom: animal.nom,
+                            type: animal.type,
+                            description: animal.description,
+                            etatActuel: animal.etatActuel,
+                            dateNaissance: animal.dateNaissance,
+                            dateInscription: animal.dateInscription
                     }));
-                    res.json(hotels);
+                    res.json(animals);
                 }).catch((e: Error) => {
                     console.error(e.stack);
                 });
             });
 
-        router.get("/hotel/hotelNo",
-                   (req: Request, res: Response, next: NextFunction) => {
-                      this.databaseService.getHotelNo().then((result: pg.QueryResult) => {
-                        const hotelPKs: string[] = result.rows.map((row: any) => row.hotelno);
-                        res.json(hotelPKs);
-                      }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
-                  });
-
-        router.post("/hotel/insert",
+        router.post("/animal/insert",
                     (req: Request, res: Response, next: NextFunction) => {
-                        const hotelNo: string = req.body.hotelNo;
-                        const hotelName: string = req.body.hotelName;
-                        const city: string = req.body.city;
-                        this.databaseService.createHotel(hotelNo, hotelName, city).then((result: pg.QueryResult) => {
+
+                        const numero: string = req.body.animalNo;
+                        const cliniqueNumero: string =  req.body.animalClinique;
+                        const proprietaireNumero: string =  req.body.animalProprietaire;
+                        const nom: string =  req.body.animalNom;
+                        const type: string =  req.body.animalType;
+                        const description: string =  req.body.animalDescription;
+                        const etatActuel: string =  req.body.animalEtatActuel;
+                        const dateNaissance: string =  req.body.animalDateNaissance;
+                        const dateInscription: string =  req.body.animalDateInscription;
+
+                        this.databaseService.createAnimal(numero,
+                                                          cliniqueNumero,
+                                                          proprietaireNumero,
+                                                          nom,
+                                                          type,
+                                                          description,
+                                                          etatActuel,
+                                                          dateNaissance,
+                                                          dateInscription).then((result: pg.QueryResult) => {
                         res.json(result.rowCount);
                     }).catch((e: Error) => {
                         console.error(e.stack);
                         res.json(-1);
                     });
         });
-
-        router.get("/rooms",
-                   (req: Request, res: Response, next: NextFunction) => {
-
-                    // this.databaseService.getRoomFromHotel(req.query.hotelNo, req.query.roomType, req.query.price)
-                    this.databaseService.getRoomFromHotelParams(req.query)
-                    .then((result: pg.QueryResult) => {
-                        const rooms: Room[] = result.rows.map((room: Room) => (
-                            {
-                            hotelno: room.hotelno,
-                            roomno: room.roomno,
-                            typeroom: room.typeroom,
-                            price: parseFloat(room.price.toString())
-                        }));
-                        res.json(rooms);
-                    }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
-            });
-
-        router.post("/rooms/insert",
-                    (req: Request, res: Response, next: NextFunction) => {
-                    const room: Room = {
-                        hotelno: req.body.hotelno,
-                        roomno: req.body.roomno,
-                        typeroom: req.body.typeroom,
-                        price: parseFloat(req.body.price)};
-                    console.log(room);
-
-                    this.databaseService.createRoom(room)
-                    .then((result: pg.QueryResult) => {
-                        res.json(result.rowCount);
-                    })
-                    .catch((e: Error) => {
-                        console.error(e.stack);
-                        res.json(-1);
-                    });
-        });
-
-        router.get("/tables/:tableName",
-                   (req: Request, res: Response, next: NextFunction) => {
-                this.databaseService.getAllFromTable(req.params.tableName)
-                    .then((result: pg.QueryResult) => {
-                        res.json(result.rows);
-                    }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
-            });
 
         return router;
     }
