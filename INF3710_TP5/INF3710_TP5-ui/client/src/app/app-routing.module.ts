@@ -6,7 +6,7 @@ import { AnimalComponent } from "./animal/animal.component";
 
 const routes: Routes = [
   { path: "app", component: AppComponent },
-  { path: "hotel", component: AnimalComponent }
+  { path: "animal", component: AnimalComponent }
 ];
 
 @NgModule({

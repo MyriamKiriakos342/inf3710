@@ -14,7 +14,7 @@ export class AnimalComponent {
 
   public duplicateError: boolean = false;
 
-  public insertHotel(animalNo: string,
+  public insertAnimal(animalNo: string,
                      animalClinique: string,
                      animalProprietaire: string,
                      animalNom: string,
