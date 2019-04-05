@@ -14,11 +14,9 @@ export class AppComponent implements OnInit {
 
     public constructor(private communicationService: CommunicationService, location: Location, router: Router) {
         router.events.subscribe((val) => {
-            if (location.path() !== "") {
-              this.route = location.path();
-            } else {
+            location.path() !== ""?
+              this.route = location.path() :
               this.route = "";
-            }
           });
     }
 
@@ -34,6 +32,7 @@ export class AppComponent implements OnInit {
     public getAnimals(): void {
         this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
             this.animals = animals;
+            console.dir(animals);
         });
     }
 

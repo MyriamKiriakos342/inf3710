@@ -1,24 +1,21 @@
-export const schema: string = `
-CREATE DATABASE IF NOT EXISTS VETDB;
+export const schema: string = `SET search_path = vetdb;
 
-SET search_path = VETDB;
+DROP SCHEMA IF EXISTS vetdb CASCADE;
+CREATE SCHEMA vetdb;
 
-DROP SCHEMA IF EXISTS VETDB CASCADE;
-CREATE SCHEMA VETDB;
+DROP DOMAIN IF EXISTS vetdb.SexType;
+DROP TABLE IF EXISTS vetdb.Clinique;
+DROP TABLE IF EXISTS vetdb.Personnel;
+DROP TABLE IF EXISTS vetdb.Examen;
+DROP TABLE IF EXISTS vetdb.Traitement;
+DROP TABLE IF EXISTS vetdb.Animal;
+DROP TABLE IF EXISTS vetdb.Proprietaire;
+DROP TABLE IF EXISTS vetdb.Resultat;
 
-DROP DOMAIN IF EXISTS VETDB.SexType;
-DROP TABLE IF EXISTS VETDB.Clinique;
-DROP TABLE IF EXISTS VETDB.Personnel;
-DROP TABLE IF EXISTS VETDB.Examen;
-DROP TABLE IF EXISTS VETDB.Traitement;
-DROP TABLE IF EXISTS VETDB.Animal;
-DROP TABLE IF EXISTS VETDB.Proprietaire;
-DROP TABLE IF EXISTS VETDB.Resultat;
-
-CREATE DOMAIN VETDB.SexType AS CHAR
+CREATE DOMAIN vetdb.SexType AS CHAR
 	CHECK(VALUE IN ('M','F'));
 
-CREATE TABLE IF NOT EXISTS VETDB.Clinique(
+CREATE TABLE IF NOT EXISTS vetdb.Clinique(
 	numero VARCHAR(10) NOT NULL,
 	rue VARCHAR(20) NOT NULL,
 	ville VARCHAR(20) NOT NULL,
@@ -30,23 +27,23 @@ CREATE TABLE IF NOT EXISTS VETDB.Clinique(
 	PRIMARY KEY(numero)
 );
 
-CREATE TABLE IF NOT EXISTS VETDB.Proprietaire(
+CREATE TABLE IF NOT EXISTS vetdb.Proprietaire(
 	numero VARCHAR(10) NOT NULL,
 	cliniqueNumero VARCHAR(10) NOT NULL,
 	nom VARCHAR(20) NOT NULL,
 	adresse VARCHAR(50) NOT NULL,
-	telephone VARCHAR(10) NOT NULL,
-	PRIMARY KEY(numero),
-	FOREIGN KEY(cliniqueNumero) REFERENCES VETDB.Clinique(numero)
+	telephone VARCHAR(15) NOT NULL,
+	PRIMARY KEY(numero, cliniqueNumero),
+	FOREIGN KEY(cliniqueNumero) REFERENCES vetdb.Clinique(numero)
 );
 
-CREATE TABLE IF NOT EXISTS VETDB.Employe(
+CREATE TABLE IF NOT EXISTS vetdb.Employe(
 	numero VARCHAR(10) NOT NULL,
 	cliniqueNumero VARCHAR(10) NOT NULL,
 	nom VARCHAR(20) NOT NULL,
 	prenom VARCHAR(20) NOT NULL,
 	adresse VARCHAR(50) NOT NULL,
-	telephone VARCHAR(10) NOT NULL,
+	telephone VARCHAR(15) NOT NULL,
 	dateNaissance date NOT NULL,
 	sexe SexType DEFAULT 'M',
 	nas VARCHAR(11) UNIQUE NOT NULL,
@@ -55,21 +52,21 @@ CREATE TABLE IF NOT EXISTS VETDB.Employe(
 	PRIMARY KEY(numero)
 );
 
-CREATE TABLE IF NOT EXISTS VETDB.Veterinaire(
+CREATE TABLE IF NOT EXISTS vetdb.Veterinaire(
 	numeroEmploye VARCHAR(10) NOT NULL UNIQUE,
 	estEnService bool NOT NULL,
     PRIMARY KEY(numeroEmploye),
-	FOREIGN KEY(numeroEmploye) REFERENCES VETDB.Employe(numero)
+	FOREIGN KEY(numeroEmploye) REFERENCES vetdb.Employe(numero)
 );
 
-CREATE TABLE IF NOT EXISTS VETDB.Traitement(
+CREATE TABLE IF NOT EXISTS vetdb.Traitement(
 	numero VARCHAR(10) NOT NULL,
 	description VARCHAR(50) NOT NULL,
-	cout NUMERIC(3,2) NOT NULL,
+	cout NUMERIC(7,2) NOT NULL,
 	PRIMARY KEY(numero)
 );
 
-CREATE TABLE IF NOT EXISTS VETDB.Animal(
+CREATE TABLE IF NOT EXISTS vetdb.Animal(
 	numero VARCHAR(10) NOT NULL UNIQUE,
 	proprietaireNumero VARCHAR(10) NOT NULL,
 	cliniqueNumero VARCHAR(10) NOT NULL,
@@ -80,22 +77,22 @@ CREATE TABLE IF NOT EXISTS VETDB.Animal(
 	dateInscription DATE NOT NULL,
 	etatActuel VARCHAR(15) NOT NULL,
 	PRIMARY KEY(numero, proprietaireNumero),
-	FOREIGN KEY(proprietaireNumero, cliniqueNumero) REFERENCES VETDB.Proprietaire(numero, cliniqueNumero)
+	FOREIGN KEY(proprietaireNumero, cliniqueNumero) REFERENCES vetdb.Proprietaire(numero, cliniqueNumero)
 );
 
-CREATE TABLE IF NOT EXISTS VETDB.Examen(
+CREATE TABLE IF NOT EXISTS vetdb.Examen(
 	numero VARCHAR(10) NOT NULL,
 	veterinaireNumero VARCHAR(10) NOT NULL,
 	numeroAnimal VARCHAR(10) NOT NULL,
 	date DATE NOT NULL,
 	heure time NOT NULL,
 	description VARCHAR(50) NOT NULL,
-	PRIMARY KEY(numero),
-	FOREIGN KEY(veterinaireNumero) REFERENCES VETDB.Veterinaire(numeroEmploye), 
-	FOREIGN KEY(numeroAnimal) REFERENCES VETDB.Animal(numero)
+	PRIMARY KEY(numero, numeroAnimal),
+	FOREIGN KEY(veterinaireNumero) REFERENCES vetdb.Veterinaire(numeroEmploye), 
+	FOREIGN KEY(numeroAnimal) REFERENCES vetdb.Animal(numero)
 );
 
-CREATE TABLE IF NOT EXISTS VETDB.Prescription(
+CREATE TABLE IF NOT EXISTS vetdb.Prescription(
 	numeroExamen VARCHAR(10) NOT NULL,
 	numeroTraitement VARCHAR(10) NOT NULL,
 	numeroAnimal VARCHAR(10) NOT NULL,
@@ -103,14 +100,7 @@ CREATE TABLE IF NOT EXISTS VETDB.Prescription(
 	dateDebut DATE NOT NULL,
 	dateFin DATE NOT NULL,
 	PRIMARY KEY(numeroExamen, numeroTraitement),
-	FOREIGN KEY(numeroExamen, numeroAnimal) REFERENCES VETDB.Examen(numero, numeroAnimal),
-	FOREIGN KEY(numeroTraitement) REFERENCES VETDB.Traitement(numero)
+	FOREIGN KEY(numeroExamen, numeroAnimal) REFERENCES vetdb.Examen(numero, numeroAnimal),
+	FOREIGN KEY(numeroTraitement) REFERENCES vetdb.Traitement(numero)
 );
-
-ALTER TABLE Clinique ADD CONSTRAINT cliniqueFK 
-	FOREIGN KEY (gestionnaireNumero) REFERENCES Employe(numero);
-
-ALTER TABLE Employe ADD CONSTRAINT employeFK 
-	FOREIGN KEY (cliniqueNumero) REFERENCES Clinique(numero);
-
 `;

@@ -10,19 +10,25 @@ import { CommunicationService } from "../communication.service";
 export class AnimalComponent {
 
   public constructor(private communicationService: CommunicationService) { }
-
-
+  public longueurMax: number = 15;
   public duplicateError: boolean = false;
 
+  // public vaidateanimalNo() {}
+  // public validateanimalClinique() {}
+  // public validateanimalProprietaire() {}
+  // public validateanimalNom() {}
+  // public validateanimalType() {}
+  // 
+
   public insertAnimal(animalNo: string,
-                     animalClinique: string,
-                     animalProprietaire: string,
-                     animalNom: string,
-                     animalType: string,
-                     animalDescription: string,
-                     animalEtatActuel: string,
-                     animalDateNaissance: string,
-                     animalDateInscription: string): void {
+                      animalClinique: string,
+                      animalProprietaire: string,
+                      animalNom: string,
+                      animalType: string,
+                      animalDescription: string,
+                      animalEtatActuel: string,
+                      animalDateNaissance: string,
+                      animalDateInscription: string): void {
     const animal: any = {"numero": animalNo,
                          "cliniqueNumero": animalClinique,
                          "proprietaireNumero": animalProprietaire,

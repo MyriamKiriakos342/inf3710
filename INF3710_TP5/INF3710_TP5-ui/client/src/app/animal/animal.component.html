@@ -5,8 +5,10 @@
     Insertion sur une cle primaire qui existe deja
   </div>
     <ul style="list-style: none;">
-      numero : <li><input class="form-control col-md-4" #animalNo></li>
-      clinique : <li><input class="form-control col-md-4" #animalClinique></li>
+      numero : <li><input class="form-control col-md-4" #animalNo ></li>
+      clinique : <li><select class="form-control col-md-4" #animalClinique>
+        <option *ngFor="let animalClinique of "></option>
+      </select></li>
       proprietaire : <li><input  class="form-control col-md-4" #animalProprietaire></li>
       nom : <li><input  class="form-control col-md-4" #animalNom></li>
       type : <li><input  class="form-control col-md-4" #animalType></li>
