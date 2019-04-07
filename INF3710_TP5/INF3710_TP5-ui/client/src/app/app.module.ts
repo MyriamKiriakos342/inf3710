@@ -8,9 +8,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CommunicationService } from "./communication.service";
 import { FactureComponent } from "./facture/facture.component";
-import { RechercheNomComponent } from "./recherche-nom/recherche-nom.component";
 import { TraitementComponent } from "./traitement/traitement.component";
-import { AnimalSupressionComponent } from './animal-supression/animal-supression.component';
+import { FicheAnimalComponent } from './fiche-animal/fiche-animal.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +17,7 @@ import { AnimalSupressionComponent } from './animal-supression/animal-supression
     AnimalComponent,
     TraitementComponent,
     FactureComponent,
-    RechercheNomComponent,
-    AnimalSupressionComponent,
+    FicheAnimalComponent,
   ],
   imports: [
     CommonModule,

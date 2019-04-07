@@ -20,19 +20,12 @@ export class AppComponent implements OnInit {
           });
     }
 
-    public readonly title: string = "INF3710 TP5";
+    public readonly title: string = "VetoSansFrontiere";
     public animals: Animal[] = [];
     public ngOnInit(): void {
         this.communicationService.listen().subscribe((m: any) => {
             console.log(m);
             this.getAnimals();
-        });
-    }
-
-    public getAnimals(): void {
-        this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
-            this.animals = animals;
-            console.dir(animals);
         });
     }
 
