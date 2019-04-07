@@ -74,8 +74,6 @@ export class CommunicationService {
         );
     }
 
-    
-
     public setUpDatabase(): Observable<any> {
         return concat(this.http.post<any>(this.BASE_URL + "/createSchema", []),
                       this.http.post<any>(this.BASE_URL + "/populateDb", []));
