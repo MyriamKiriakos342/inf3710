@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, HostListener } from "@angular/core";
 import { CommunicationService } from "../communication.service";
 
 @Component({
@@ -18,8 +18,7 @@ export class AnimalComponent {
   // public validateanimalProprietaire() {}
   // public validateanimalNom() {}
   // public validateanimalType() {}
-  // 
-
+  @HostListener("document:keydown.enter", ["$event"])
   public insertAnimal(animalNo: string,
                       animalClinique: string,
                       animalProprietaire: string,
