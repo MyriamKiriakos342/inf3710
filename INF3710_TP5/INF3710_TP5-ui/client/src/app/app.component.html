@@ -23,25 +23,5 @@
 <router-outlet></router-outlet>
 
 
-<div id="ht" style="text-align:center" *ngIf="route">
-  <button type="button" class="btn btn-primary" (click)="getAnimals()">Get Animals</button>
-  <table id ="ht" align="center" border="1" width="350">
-    <thead>
-    </thead>
-    <tbody>
-      <tr *ngFor="let animal of animals">
-        <td> {{animal.numero}}</td>
-        <td> {{animal.proprietaireNumero}}</td>
-        <td> {{animal.cliniqueNumero}}</td>
-        <td> {{animal.nom}}</td>
-        <td> {{animal.type}}</td>
-        <td> {{animal.description}}</td>
-        <td> {{animal.etatActual}}</td>
-        <td> {{animal.dateNaissance}}</td>
-        <td> {{animal.dateInscription}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
 

@@ -1,3 +1,23 @@
-<p>
-  fiche-animal works!
-</p>
+<div id="ht" style="text-align:center">
+    <table id ="ht" align="center" border="1" width="350">
+      <thead>
+      </thead>
+      <tbody>
+        <tr *ngFor="let animal of animals">
+          <td> {{animal.numero}}</td>
+          <td> {{animal.proprietaireNumero}}</td>
+          <td> {{animal.cliniqueNumero}}</td>
+          <td> {{animal.nom}}</td>
+          <td> {{animal.type}}</td>
+          <td> {{animal.description}}</td>
+          <td> {{animal.etatActual}}</td>
+          <td> {{animal.dateNaissance}}</td>
+          <td> {{animal.dateInscription}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<div width="350" style="justify-content:space-evenly">
+  <button type="button" mat-raised-button>Modifier</button>
+  <button type="button" mat-raised-button>Supprimer</button>
+</div>

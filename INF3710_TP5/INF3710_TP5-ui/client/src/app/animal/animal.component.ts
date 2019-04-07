@@ -1,9 +1,10 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, NgModule, OnInit } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { Animal } from "../../../../common/tables/Animal";
-import { Clinique } from "../../../../common/tables/Clinique";
-import { Proprietaire } from "../../../../common/tables/Proprietaire";
 import { CommunicationService } from "../communication.service";
-
+@NgModule({
+  imports: [FlexLayoutModule],
+})
 @Component({
   selector: "app-animal",
   templateUrl: "./animal.component.html",
@@ -12,23 +13,18 @@ import { CommunicationService } from "../communication.service";
 
 export class AnimalComponent implements OnInit {
 
-  public constructor(private communicationService: CommunicationService) { 
+  public constructor(private communicationService: CommunicationService) {
     this.animals = [];
-    this.clinique = [];
-    this.proprietaire = [];
   }
   public longueurMax: number = 15;
   public duplicateError: boolean = false;
   public animals: Animal[];
-  public proprietaire: Proprietaire[];
-  public clinique: Clinique[];
 
   // public vaidateanimalNo() {}
   // public validateanimalClinique() {}
   // public validateanimalProprietaire() {}
   // public validateanimalNom() {}
   // public validateanimalType() {}
-  @HostListener("document:keydown.enter", ["$event"])
   public insertAnimal(animalNo: string,
                       animalClinique: string,
                       animalProprietaire: string,

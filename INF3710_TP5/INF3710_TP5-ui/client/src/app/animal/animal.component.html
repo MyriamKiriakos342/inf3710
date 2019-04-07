@@ -1,31 +1,6 @@
+<input type="text"><button mat-raised-button>Rechercher</button><br>
+<div *ngFor = "let animal of animals">
+  <app-fiche-animal class="cardList" [animal]=animal></app-fiche-animal>
+</div>
 
-<div id="animal" style="text-align: left">
-  <h1> Animals</h1>
-  <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
-    Insertion sur une cle primaire qui existe deja
-  </div>
-    <ul style="list-style: none;">
-      numero : <li><input class="form-control col-md-4" #animalNo ></li>
-      clinique : <li><select class="form-control col-md-4" #animalClinique>
-        <option *ngFor="let animalClinique of "></option>
-      </select></li>
-      proprietaire : <li><input  class="form-control col-md-4" #animalProprietaire></li>
-      nom : <li><input  class="form-control col-md-4" #animalNom></li>
-      type : <li><input  class="form-control col-md-4" #animalType></li>
-      description : <li><input  class="form-control col-md-4" #animalDescription></li>
-      etat actuel : <li><input  class="form-control col-md-4" #animalEtatActuel></li>
-      date de naissance : <li><input  class="form-control col-md-4" #animalDateNaissance></li>
-      date d'inscription : <li><input  class="form-control col-md-4" #animalDateInscription></li>
-    <li><button type="button" class="btn btn-primary" (click)="insertAnimal(animalNo.value,
-                                                                            animalClinique.value,
-                                                                            animalProprietaire.value,
-                                                                            animalNom.value,
-                                                                            animalType.value,
-                                                                            animalDescription.value,
-                                                                            animalEtatActuel.value,
-                                                                            animalDateNaissance.value,
-                                                                            animalDateInscription.value)"> Add Animal</button></li>
-    </ul>
-   
-  </div>
-  
+<button type="button" class="btn btn-primary" (click)="insertAnimal()" mat-raised-button>Ajouter un animal</button>

@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
     public constructor(private communicationService: CommunicationService, location: Location, router: Router) {
         router.events.subscribe((val) => {
-            location.path() !== ""?
+            location.path() !== "" ?
               this.route = location.path() :
               this.route = "";
           });
@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
     public ngOnInit(): void {
         this.communicationService.listen().subscribe((m: any) => {
             console.log(m);
-            this.getAnimals();
         });
     }
 

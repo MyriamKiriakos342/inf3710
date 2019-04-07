@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from "@angular/core";
+import { Animal } from "../../../../common/tables/Animal";
 
 @Component({
-  selector: 'app-fiche-animal',
-  templateUrl: './fiche-animal.component.html',
-  styleUrls: ['./fiche-animal.component.css']
+  selector: "app-fiche-animal",
+  templateUrl: "./fiche-animal.component.html",
+  styleUrls: ["./fiche-animal.component.css"]
 })
-export class FicheAnimalComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class FicheAnimalComponent {
+  @Input() public animal: Animal;
 
 }
