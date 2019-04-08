@@ -5,17 +5,22 @@
       Insertion sur une cle primaire qui existe deja
     </div>
       <ul style="list-style: none;">
-        numero : <li><input class="form-control col-md-4" #animalNo ></li>
+        numero : A<li><input type="number" maxlength="5" class="form-control col-md-4" #animalNo ></li>
         clinique : <li><select class="form-control col-md-4" #animalClinique>
-          <option *ngFor="let animalClinique of "></option>
+          <option *ngFor="let clinique of cliniques">{{clinique.numero}}</option>
         </select></li>
-        proprietaire : <li><input  class="form-control col-md-4" #animalProprietaire></li>
-        nom : <li><input  class="form-control col-md-4" #animalNom></li>
-        type : <li><input  class="form-control col-md-4" #animalType></li>
+        proprietaire : <li><select  class="form-control col-md-4" #animalProprietaire>
+          <option *ngFor="let proprietaire of proprietaires" >{{proprietaire.numero}}</option>
+        </select></li>
+        nom : <li><input  maxlength="10" class="form-control col-md-4" #animalNom></li>
+        type : <li><input maxlength="10" class="form-control col-md-4" #animalType></li>
         description : <li><input  class="form-control col-md-4" #animalDescription></li>
-        etat actuel : <li><input  class="form-control col-md-4" #animalEtatActuel></li>
-        date de naissance : <li><input  class="form-control col-md-4" #animalDateNaissance></li>
-        date d'inscription : <li><input  class="form-control col-md-4" #animalDateInscription></li>
+        etat actuel : <li><select  class="form-control col-md-4" #animalEtatActuel>
+          <option value="vivant">vivant</option>
+          <option value="decede">decede</option>
+        </select>></li>
+        date de naissance : <li><input type="date" class="form-control col-md-4" #animalDateNaissance></li>
+        date d'inscription : <li><input  type="date"form-control col-md-4" #animalDateInscription></li>
       <li><button type="button" class="btn btn-primary" (click)="insertAnimal(animalNo.value,
                                                                               animalClinique.value,
                                                                               animalProprietaire.value,
@@ -24,7 +29,11 @@
                                                                               animalDescription.value,
                                                                               animalEtatActuel.value,
                                                                               animalDateNaissance.value,
-                                                                              animalDateInscription.value)"> Add Animal</button></li>
+                                                                              animalDateInscription.value)"> Add Animal</button>
+            <button (click)="closeForm()" mat-raised-button>
+              Cancel
+            </button>
+          </li>
       </ul>
      
     </div>
