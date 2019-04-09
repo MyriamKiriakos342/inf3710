@@ -9,13 +9,13 @@ INSERT INTO vetdb.Employe(numero, cliniqueNumero, nom, prenom, adresse, telephon
 VALUES ('G6523', 'C176','Bou', 'Bastien', '32 rue Foxtrot', '356-875-4563', '1989-01-23', 'M', '123 123 777', 'Gestionnaire', '200000');
 --Clinique
 
-INSERT INTO vetdb.Clinique(numero, rue, ville, province, codePostal, gestionnaireNumero, telecopieur, telephone)
+INSERT INTO vetdb.Clinique(numero, rue, ville, province, codePostal, gestionnaireNo, telecopieur, telephone)
 VALUES ('C476', '6188 rue McDonald', 'Vancouver', 'Colombie-Britanique', 'h4o0d2', 'G6523', '315-543-6421', '234-786-7654');
 
-INSERT INTO vetdb.Clinique(numero, rue, ville, province, codePostal, gestionnaireNumero, telecopieur, telephone) 
+INSERT INTO vetdb.Clinique(numero, rue, ville, province, codePostal, gestionnaireNo, telecopieur, telephone) 
 VALUES ('C456', '1234 rue Brave', 'Iqaluit', 'Nunavut', 'l3h8c8', 'G9864', '432-879-4378', '435-839-8279');
 
-INSERT INTO vetdb.Clinique(numero, rue, ville, province, codePostal, gestionnaireNumero, telecopieur, telephone) 
+INSERT INTO vetdb.Clinique(numero, rue, ville, province, codePostal, gestionnaireNo, telecopieur, telephone) 
 VALUES ('C176', '879 ave Hiver', 'Montreal', 'Quebec', 'h3i0v7', 'G9632', '879-555-3434', '121-919-3565');
 
 --Proprietaire
@@ -107,5 +107,5 @@ VALUES ('A907', 'T909', 21, '2017-04-00', '2017-04-07' );
 ALTER TABLE Employe ADD CONSTRAINT employeFK
 	FOREIGN KEY (cliniqueNumero) REFERENCES Clinique(numero);
 
-ALTER TABLE Clinique ADD CONSTRAINT cliniqueFK 
-	FOREIGN KEY (gestionnaireNumero) REFERENCES Employe(numero);`;
+ALTER TABLE Clinique ADD CONSTRAINT cliniqueFK
+	FOREIGN KEY (gestionnaireNo) REFERENCES Employe(numero);`;

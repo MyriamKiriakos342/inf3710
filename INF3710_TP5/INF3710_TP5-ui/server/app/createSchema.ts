@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS vetdb.Clinique(
 	ville VARCHAR(20) NOT NULL,
 	province VARCHAR(20) NOT NULL,
 	codePostal VARCHAR(6) NOT NULL,
-	gestionnaireNumero VARCHAR(10) NOT NULL,
+	gestionnaireNo VARCHAR(10) NOT NULL,
 	telecopieur VARCHAR(12) NOT NULL,
 	telephone VARCHAR(12) NOT NULL,
 	PRIMARY KEY(numero)
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS vetdb.Animal(
 	dateNaissance DATE NOT NULL,
 	dateInscription DATE NOT NULL,
 	etatActuel VARCHAR(15) NOT NULL,
-	PRIMARY KEY(numero, proprietaireNumero),
+	PRIMARY KEY(numero, cliniqueNumero),
 	FOREIGN KEY(proprietaireNumero, cliniqueNumero) REFERENCES vetdb.Proprietaire(numero, cliniqueNumero)
 );
 
