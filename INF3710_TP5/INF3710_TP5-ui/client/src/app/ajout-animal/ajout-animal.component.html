@@ -6,8 +6,7 @@
     </div>
       <mat-form-field style="list-style: none;">
 
-        numero : A<input matInput type="number" maxlength="5" #animalNo >
-
+        numero : A<input matInput type="number" maxlength="5" #animalNo>
         clinique : <mat-select #animalClinique (change)="">
           <mat-option *ngFor="let clinique of cliniques">{{clinique.numero}}</mat-option>
         </mat-select>

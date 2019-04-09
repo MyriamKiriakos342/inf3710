@@ -1,4 +1,4 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<!--The content below is only a placeholder and can be replaced.
 
 
 
@@ -14,9 +14,12 @@
       </div>
     </div>
 </nav>
-
+-->
 <div style="text-align:center">
 <div *ngIf="route == ''">
+  <title>Bienvenue a VetoSansFrontiere!</title>
+  <button class="active" (click)="accederAjouter()">Ajouter le dossier d'un animal</button>
+  <button (click)="accederDossiers()">Acceder aux dossier d'un animal</button>
   <!--<button type="button" class="btn btn-danger" (click) ="createDB()">Create Database</button>-->
 </div>
 

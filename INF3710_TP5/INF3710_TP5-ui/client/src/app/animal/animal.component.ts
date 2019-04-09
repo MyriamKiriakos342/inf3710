@@ -20,11 +20,6 @@ export class AnimalComponent implements OnInit {
   public duplicateError: boolean = false;
   public animals: Animal[];
 
-  // public vaidateanimalNo() {}
-  // public validateanimalClinique() {}
-  // public validateanimalProprietaire() {}
-  // public validateanimalNom() {}
-  // public validateanimalType() {}
   public insertAnimal(animalNo: string,
                       animalClinique: string,
                       animalProprietaire: string,

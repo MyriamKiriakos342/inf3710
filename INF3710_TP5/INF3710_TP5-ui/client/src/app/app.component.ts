@@ -11,6 +11,7 @@ import { CommunicationService } from "./communication.service";
 })
 export class AppComponent implements OnInit {
     public route: string;
+    public router: Router;
 
     public constructor(private communicationService: CommunicationService, location: Location, router: Router) {
         router.events.subscribe((val) => {
@@ -20,7 +21,6 @@ export class AppComponent implements OnInit {
           });
     }
 
-    public readonly title: string = "VetoSansFrontiere";
     public animals: Animal[] = [];
     public ngOnInit(): void {
         this.communicationService.listen().subscribe((m: any) => {
@@ -32,5 +32,13 @@ export class AppComponent implements OnInit {
         this.communicationService.setUpDatabase().subscribe((res: any) => {
             console.log(res);
         });
+    }
+
+    public accederAjouter(): void {
+        this.router.navigateByUrl("").catch(() => alert("Page introuvable"));();
+    }
+
+    public accederDossiers(): void {
+        
     }
 }

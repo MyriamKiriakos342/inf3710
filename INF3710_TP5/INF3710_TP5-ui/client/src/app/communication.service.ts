@@ -20,10 +20,6 @@ export class CommunicationService {
        return this._listners.asObservable();
     }
 
-    public filter(filterBy: string): void {
-       this._listners.next(filterBy);
-    }
-
     public getAnimals(): Observable<Animal[]> {
 
         return this.http.get<Animal[]>(this.BASE_URL + "/animal").pipe(

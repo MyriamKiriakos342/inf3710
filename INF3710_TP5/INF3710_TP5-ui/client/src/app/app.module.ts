@@ -13,8 +13,8 @@ import { AppComponent } from "./app.component";
 import { CommunicationService } from "./communication.service";
 import { FactureComponent } from "./facture/facture.component";
 import { FicheAnimalComponent } from "./fiche-animal/fiche-animal.component";
+import { ListeAnimauxComponent } from "./liste-animaux/liste-animaux.component";
 import { TraitementComponent } from "./traitement/traitement.component";
-
 
 @NgModule({
   declarations: [
@@ -24,6 +24,7 @@ import { TraitementComponent } from "./traitement/traitement.component";
     FactureComponent,
     FicheAnimalComponent,
     AjoutAnimalComponent,
+    ListeAnimauxComponent,
   ],
   imports: [
     CommonModule,
