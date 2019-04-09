@@ -55,7 +55,7 @@ export class DatabaseService {
 
     public async searchAnimal(name: string): Promise<pg.QueryResult> {
 
-        return this.pool.query(`SELECT * FROM VETDB.Animal WHERE nom LIKE || %name% ||;`);
+        return this.pool.query(`SELECT * FROM VETDB.Animal WHERE nom LIKE %name%;`);
     }
     public async deleteAnimal(animal: Animal): Promise<pg.QueryResult> {
 
@@ -64,7 +64,8 @@ export class DatabaseService {
     public async getTraitementsByAnimals(animalNo: string, cliniqueNo: string): Promise<pg.QueryResult> {
 
         return this.pool.query(`SELECT p.*, t.* FROM VETDB.Prescription p, VETDB.Traitement t
-                WHERE numeroAnimal = ${animalNo} AND cliniqueNumero=${cliniqueNo}  AND t.numero = p.numeroTraitement;`);
+                WHERE p.numeroAnimal = ${animalNo} AND t.numero = p.numeroTraitement AND ${cliniqueNo} =
+                (SELECT cliniqueNo FROM animal WHERE numero=${animalNo});`);
     }
     public async calculateBill(animal: Animal): Promise<pg.QueryResult> {
 
