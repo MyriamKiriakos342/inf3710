@@ -6,24 +6,24 @@
     </div>
       <mat-form-field style="list-style: none;">
 
-        numero : A<input matInput type="number" maxlength="5" class="form-control col-md-4" #animalNo >
+        numero : A<input matInput type="number" maxlength="5" #animalNo >
 
-        clinique : <mat-select class="form-control col-md-4" #animalClinique >
+        clinique : <mat-select #animalClinique (change)="">
           <mat-option *ngFor="let clinique of cliniques">{{clinique.numero}}</mat-option>
         </mat-select>
-        proprietaire : <mat-select  class="form-control col-md-4" #animalProprietaire >
+        proprietaire : <mat-select #animalProprietaire >
           <mat-option *ngFor="let proprietaire of proprietaires" >{{proprietaire.numero}}</mat-option>
         </mat-select>
-        nom : <input matInput  maxlength="10" class="form-control col-md-4" #animalNom matInput>
-        type : <input matInput maxlength="10" class="form-control col-md-4" #animalType>
-        description : <input matInput  class="form-control col-md-4" #animalDescription>
-        etat actuel : <mat-select  class="form-control col-md-4" #animalEtatActuel >
+        nom : <input matInput  maxlength="10" #animalNom matInput>
+        type : <input matInput maxlength="10" #animalType>
+        description : <input matInput  #animalDescription>
+        etat actuel : <mat-select  #animalEtatActuel >
           <mat-option value="vivant">vivant</mat-option>
           <mat-option value="decede">decede</mat-option>
         </mat-select>>
-        date de naissance : <input matInput type="date" class="form-control col-md-4" #animalDateNaissance>
+        date de naissance : <input matInput type="date" #animalDateNaissance>
         date d'inscription : <input matInput  type="date"form-control col-md-4" #animalDateInscription >
-      <button type="button" class="btn btn-primary" (click)="insertAnimal(animalNo.value,
+      <button type="button" (click)="insertAnimal(animalNo.value,
                                                                               animalClinique.value,
                                                                               animalProprietaire.value,
                                                                               animalNom.value,

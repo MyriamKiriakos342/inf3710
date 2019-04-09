@@ -5,7 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { MatButtonModule,
    MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AjoutAnimalComponent } from "./ajout-animal/ajout-animal.component";
 import { AnimalComponent } from "./animal/animal.component";
 import { AppRoutingModule } from "./app-routing.module";

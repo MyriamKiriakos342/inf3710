@@ -3,17 +3,35 @@
     <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
       Erreur!
     </div>
-      <mat-form-field style="list-style: none;" style="align-items: center;">
-        <label>la cle primaire de l'animal dont vous souhaiter obtenir la facture :</label> 
-         <mat-select class="form-control col-md-4" #animalNo>
+      <mat-form-field>
+          <label> cle primaire animal</label>
+         <mat-select #animalNo>
            <mat-option *ngFor="let animal of animals">{{animal.numero}}</mat-option>
          </mat-select>
-         <label> cle primaire de la clinique de l'animal :</label>
-         <mat-select class="form-control col-md-4" #proprietaireNo>
-           <mat-option *ngFor="let clinique of cliniques"> {{clinique.numero}} </mat-option>
+         <label> cle primaire clinique :</label>
+         <mat-select #proprietaireNo>
+           <mat-option *ngFor="let clinique of cliniques" > {{clinique.numero}} </mat-option>
          </mat-select>
         </mat-form-field>
-     <div style="align-items:center;" #infoTraitements></div>
-    </div>
+    <!-- <div style="align-items:center;" #infoTraitements>
+        <table id ="ht" align="center" border="1" width="350">
+            <thead>
+            </thead>
+            <tbody>
+              <tr *ngFor="let treatment of treatments">
+                <td> {{treatment.numero}}</td>
+                <td> {{treatment.proprietaireNumero}}</td>
+                <td> {{treatment.cliniqueNumero}}</td>
+                <td> {{treatment.nom}}</td>
+                <td> {{treatment.type}}</td>
+                <td> {{treatment.description}}</td>
+                <td> {{treatment.etatActual}}</td>
+                <td> {{treatment.dateNaissance}}</td>
+                <td> {{treatment.dateInscription}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>-->
+  </div>
     
   

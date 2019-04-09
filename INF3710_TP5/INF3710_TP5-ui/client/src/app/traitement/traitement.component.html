@@ -3,11 +3,13 @@
     <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
       Erreur!
     </div>
-      <ul style="list-style: none;">
+      <mat-form-field style="list-style: none;">
         Entrer la cl/ primaire de l'animal dont vous voulez recevoir les informations! :
-         <input class="form-control col-md-4" #animalNo >
-      </ul>
-     <div style="align-items: center" #infoTraitements></div>
+         <input matInput class="form-control col-md-4" #animalNo (change)="searchTreatements()" [(ngModel)]="name">
+      </mat-form-field>
+     <div style="align-items: center" #infoTraitements>
+      <table></table>
+    </div>
     </div>
     
   
