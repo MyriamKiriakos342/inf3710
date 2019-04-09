@@ -47,6 +47,7 @@ export class AnimalComponent implements OnInit {
     this.communicationService.insertAnimal(animal).subscribe((res: number) => {
         if (res > 0) {
             this.communicationService.filter("update");
+            this.getAnimals();
         }
         this.duplicateError = (res === -1);
     });

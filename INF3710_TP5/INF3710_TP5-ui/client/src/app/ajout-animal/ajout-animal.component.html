@@ -4,24 +4,26 @@
     <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
       Insertion sur une cle primaire qui existe deja
     </div>
-      <ul style="list-style: none;">
-        numero : A<li><input type="number" maxlength="5" class="form-control col-md-4" #animalNo ></li>
-        clinique : <li><select class="form-control col-md-4" #animalClinique>
-          <option *ngFor="let clinique of cliniques">{{clinique.numero}}</option>
-        </select></li>
-        proprietaire : <li><select  class="form-control col-md-4" #animalProprietaire>
-          <option *ngFor="let proprietaire of proprietaires" >{{proprietaire.numero}}</option>
-        </select></li>
-        nom : <li><input  maxlength="10" class="form-control col-md-4" #animalNom></li>
-        type : <li><input maxlength="10" class="form-control col-md-4" #animalType></li>
-        description : <li><input  class="form-control col-md-4" #animalDescription></li>
-        etat actuel : <li><select  class="form-control col-md-4" #animalEtatActuel>
-          <option value="vivant">vivant</option>
-          <option value="decede">decede</option>
-        </select>></li>
-        date de naissance : <li><input type="date" class="form-control col-md-4" #animalDateNaissance></li>
-        date d'inscription : <li><input  type="date"form-control col-md-4" #animalDateInscription></li>
-      <li><button type="button" class="btn btn-primary" (click)="insertAnimal(animalNo.value,
+      <mat-form-field style="list-style: none;">
+
+        numero : A<input matInput type="number" maxlength="5" class="form-control col-md-4" #animalNo >
+
+        clinique : <mat-select class="form-control col-md-4" #animalClinique >
+          <mat-option *ngFor="let clinique of cliniques">{{clinique.numero}}</mat-option>
+        </mat-select>
+        proprietaire : <mat-select  class="form-control col-md-4" #animalProprietaire >
+          <mat-option *ngFor="let proprietaire of proprietaires" >{{proprietaire.numero}}</mat-option>
+        </mat-select>
+        nom : <input matInput  maxlength="10" class="form-control col-md-4" #animalNom matInput>
+        type : <input matInput maxlength="10" class="form-control col-md-4" #animalType>
+        description : <input matInput  class="form-control col-md-4" #animalDescription>
+        etat actuel : <mat-select  class="form-control col-md-4" #animalEtatActuel >
+          <mat-option value="vivant">vivant</mat-option>
+          <mat-option value="decede">decede</mat-option>
+        </mat-select>>
+        date de naissance : <input matInput type="date" class="form-control col-md-4" #animalDateNaissance>
+        date d'inscription : <input matInput  type="date"form-control col-md-4" #animalDateInscription >
+      <button type="button" class="btn btn-primary" (click)="insertAnimal(animalNo.value,
                                                                               animalClinique.value,
                                                                               animalProprietaire.value,
                                                                               animalNom.value,
@@ -29,12 +31,12 @@
                                                                               animalDescription.value,
                                                                               animalEtatActuel.value,
                                                                               animalDateNaissance.value,
-                                                                              animalDateInscription.value)"> Add Animal</button>
+                                                                              animalDateInscription.value)" mat-raised-button> Add Animal</button>
             <button (click)="closeForm()" mat-raised-button>
               Cancel
             </button>
-          </li>
-      </ul>
+          
+      </mat-form-field>
      
     </div>
     
