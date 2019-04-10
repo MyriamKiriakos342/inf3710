@@ -1,4 +1,4 @@
-import { Location } from "@angular/common";
+// import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Animal } from "../../../common/tables/Animal";
@@ -10,15 +10,8 @@ import { CommunicationService } from "./communication.service";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
-    public route: string;
-    public router: Router;
 
-    public constructor(private communicationService: CommunicationService, location: Location, router: Router) {
-        router.events.subscribe((val) => {
-            location.path() !== "" ?
-              this.route = location.path() :
-              this.route = "";
-          });
+    public constructor(private communicationService: CommunicationService, private router: Router) {
     }
 
     public animals: Animal[] = [];
@@ -35,10 +28,10 @@ export class AppComponent implements OnInit {
     }
 
     public accederAjouter(): void {
-        this.router.navigateByUrl("").catch(() => alert("Page introuvable"));();
+        this.router.navigateByUrl("ajout").catch(() => alert("Page introuvable"));
     }
 
     public accederDossiers(): void {
-        
+        this.router.navigateByUrl("animal").catch(() => alert("Page introuvable"));
     }
 }

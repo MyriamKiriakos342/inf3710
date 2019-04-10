@@ -7,7 +7,7 @@
       <mat-form-field style="list-style: none;">
 
         numero : A<input matInput type="number" maxlength="5" #animalNo>
-        clinique : <mat-select #animalClinique (change)="">
+        clinique : <mat-select #animalClinique >
           <mat-option *ngFor="let clinique of cliniques">{{clinique.numero}}</mat-option>
         </mat-select>
         proprietaire : <mat-select #animalProprietaire >

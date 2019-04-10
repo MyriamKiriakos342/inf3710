@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AjoutAnimalComponent } from "./ajout-animal/ajout-animal.component";
 import { AnimalComponent } from "./animal/animal.component";
 import { AppComponent } from "./app.component";
 import { FactureComponent } from "./facture/facture.component";
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: "animal", component: AnimalComponent },
   { path: "traitement", component: TraitementComponent },
   { path: "facture", component: FactureComponent },
+  { path: "ajout", component: AjoutAnimalComponent }
 ];
 
 @NgModule({
