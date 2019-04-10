@@ -19,6 +19,12 @@ INSERT INTO vetdb.Proprietaire(numero, cliniqueNumero, nom, adresse, telephone)
 VALUES ('P564', 'C456', 'Mouna Mouna', '456 rue Chat Iqaluit NU', '329-624-9632');
 INSERT INTO VETDB.Proprietaire(numero, cliniqueNumero, nom, adresse, telephone)
 VALUES ('P653', 'C476', 'Emilien Anon', '789 rue Chien Vancouver CB', '986-234-8342');
+INSERT INTO VETDB.Proprietaire(numero, cliniqueNumero, nom, adresse, telephone)
+VALUES ('P652', 'C176', 'Jean Michel Tremblay', '1 rue Chemin Qc', '018-369-8894');
+INSERT INTO VETDB.Proprietaire(numero, cliniqueNumero, nom, adresse, telephone)
+VALUES ('P651', 'C476', 'Marie Antartica', '1 Chemin de la Banquise Qc', '316-635-8987');
+INSERT INTO VETDB.Proprietaire(numero, cliniqueNumero, nom, adresse, telephone)
+VALUES ('P650', 'C476', 'Jean blayke Lassonde', '654 rue du Croissant', '514-514-5145');
 --Employe
 INSERT INTO VETDB.Employe(numero, cliniqueNumero, nom, prenom, adresse, telephone, dateNaissance, sexe, nas, fonction, salaire)
 VALUES ('V754', 'C456','Sheep', 'Shawn', '89 rue Baleine', '876-366-2323', '1998-03-04', 'M', '647 436 436', 'Secretaire', '50000');
@@ -30,6 +36,8 @@ INSERT INTO VETDB.Employe(numero, cliniqueNumero, nom, prenom, adresse, telephon
 VALUES ('E111', 'C476','Elph', 'Elsa', '90 rue Neige', '756-465-3452', '1967-06-06', 'F', '235 786 345', 'Infirmiere', '80000');
 INSERT INTO VETDB.Employe(numero, cliniqueNumero, nom, prenom, adresse, telephone, dateNaissance, sexe, nas, fonction, salaire)
 VALUES ('E500', 'C176','Red', 'Alissa', '65 rue St-Urbain', '765-654-6544', '1990-02-05', 'F', '765 465 222', 'Infirmiere', '100000');
+INSERT INTO VETDB.Employe(numero, cliniqueNumero, nom, prenom, adresse, telephone, dateNaissance, sexe, nas, fonction, salaire)
+VALUES ('V699', 'C176','Tremblay', 'Jean', '899 chemin Polytechnique', '305-897-4524', '1995-12-05', 'M', '789 857 987', 'Veterianaire', '900000');
 --Veterinaire
 INSERT INTO VETDB.Veterinaire(numeroEmploye, estEnService)
 VALUES ('V754', true);
@@ -37,13 +45,27 @@ INSERT INTO VETDB.Veterinaire(numeroEmploye, estEnService)
 VALUES ('V635', false);
 INSERT INTO VETDB.Veterinaire(numeroEmploye, estEnService)
 VALUES ('V124', false);
+INSERT INTO VETDB.Veterinaire(numeroEmploye, estEnService)
+VALUES ('V699', false);
 --Animal
 INSERT INTO VETDB.Animal(numero, proprietaireNumero, cliniqueNumero, nom, type, description, dateNaissance, dateInscription, etatActuel)
 VALUES ('A532', 'P456', 'C176', 'Star', 'Chat','Sphinx sans condition preexistante', '2017-01-07', '2018-04-29', 'decede');
 INSERT INTO VETDB.Animal(numero, proprietaireNumero, cliniqueNumero, nom, type, description, dateNaissance, dateInscription, etatActuel)
+VALUES ('A533', 'P456', 'C176', 'Nebuleuse', 'Chien','chien bipolaire', '2018-04-29', '2018-04-30', 'vivant');
+INSERT INTO VETDB.Animal(numero, proprietaireNumero, cliniqueNumero, nom, type, description, dateNaissance, dateInscription, etatActuel)
 VALUES ('A087', 'P564','C456', 'Blue', 'Chien','Labrador avec haute tension', '2015-04-23', '2016-05-23', 'vivant');
 INSERT INTO VETDB.Animal(numero, proprietaireNumero, cliniqueNumero, nom, type, description, dateNaissance, dateInscription, etatActuel)
 VALUES ('A907', 'P653', 'C476', 'Silver', 'Serpent','probleme decailles', '2012-05-04', '2014-07-19', 'vivant');
+INSERT INTO VETDB.Animal(numero, proprietaireNumero, cliniqueNumero, nom, type, description, dateNaissance, dateInscription, etatActuel)
+VALUES ('A465', 'P653', 'C476', 'Grey', 'Serpent','avait un probleme decailles', '2011-05-04', '2012-05-04', 'decede');
+INSERT INTO VETDB.Animal(numero, proprietaireNumero, cliniqueNumero, nom, type, description, dateNaissance, dateInscription, etatActuel)
+VALUES ('A312', 'P651', 'C476', 'Magenta', 'Chevre','en bonne sante', '2010-01-01', '2010-01-02', 'vivant');
+INSERT INTO VETDB.Animal(numero, proprietaireNumero, cliniqueNumero, nom, type, description, dateNaissance, dateInscription, etatActuel)
+VALUES ('A315', 'P456', 'C176', 'Jaune', 'Serpent','est vegetarien', '2010-01-01', '2010-01-02', 'vivant');
+INSERT INTO VETDB.Animal(numero, proprietaireNumero, cliniqueNumero, nom, type, description, dateNaissance, dateInscription, etatActuel)
+VALUES ('A319', 'P650', 'C476', 'Bleu', 'Chat','pense qu il est un chien', '2000-5-24', '2002-06-09', 'vivant');
+INSERT INTO VETDB.Animal(numero, proprietaireNumero, cliniqueNumero, nom, type, description, dateNaissance, dateInscription, etatActuel)
+VALUES ('A321', 'P650', 'C476', 'Maron', 'Chien','convertit des chats en chien', '1995-01-01', '2015-04-23', 'vivant');
 --Examen
 INSERT INTO VETDB.Examen(numero, date, heure, description, veterinaireNumero, numeroAnimal)
 VALUES ('EX3422', '2019-04-01','12:30', 'Examen apres traitement', 'V635', 'A532');
@@ -57,18 +79,30 @@ VALUES ('EX8765', '2016-05-17','17:30', 'Urgence', 'V754', 'A907');
 INSERT INTO VETDB.Traitement(numero, description, cout)
 VALUES ('T432', 'Bisoprolol 5mg tout les soirs avant de manger', 50);
 INSERT INTO VETDB.Traitement(numero, description, cout)
+VALUES ('T801', 'Ibuprofanimal 100mg a chaque heure', 25);
+INSERT INTO VETDB.Traitement(numero, description, cout)
 VALUES ('T365', 'Bandages, platre sur patte droite et advils', 200);
 INSERT INTO VETDB.Traitement(numero, description, cout)
 VALUES ('T909', 'Appliquer creme hydratante trois fois par jour', 754);
+INSERT INTO VETDB.Traitement(numero, description, cout)
+VALUES ('T100', 'Consultation generale', 20);
 --Prescription
 INSERT INTO VETDB.Prescription(numeroExamen, numeroTraitement, numeroAnimal, qteTraitement, dateDebut, dateFin)
 VALUES ('EX3422', 'T432', 'A532', 30, '2017-10-30', '2017-11-30' );
+INSERT INTO VETDB.Prescription(numeroExamen, numeroTraitement, numeroAnimal, qteTraitement, dateDebut, dateFin)
+VALUES ('EX3422', 'T801', 'A532', 99, '2017-10-30', '2017-11-30' );
+INSERT INTO VETDB.Prescription(numeroExamen, numeroTraitement, numeroAnimal, qteTraitement, dateDebut, dateFin)
+VALUES ('EX3422', 'T100', 'A532', 1, '2017-10-30', '2017-11-30' );
 INSERT INTO VETDB.Prescription(numeroExamen, numeroTraitement, numeroAnimal,qteTraitement, dateDebut, dateFin)
 VALUES ('EX6543', 'T365', 'A532', 15, '2017-10-08', '2018-09-24' );
+INSERT INTO VETDB.Prescription(numeroExamen, numeroTraitement, numeroAnimal,qteTraitement, dateDebut, dateFin)
+VALUES ('EX6543', 'T100', 'A532', 1, '2017-10-08', '2018-09-24' );
 INSERT INTO VETDB.Prescription(numeroExamen, numeroTraitement,numeroAnimal, qteTraitement, dateDebut, dateFin)
 VALUES ('EX8765', 'T909', 'A907', 21, '2017-04-01', '2017-04-07' );
+INSERT INTO VETDB.Prescription(numeroExamen, numeroTraitement,numeroAnimal, qteTraitement, dateDebut, dateFin)
+VALUES ('EX8765', 'T100', 'A907', 1, '2017-04-01', '2017-04-07' );
 ALTER TABLE VETDB.Employe ADD CONSTRAINT employeFK
 	FOREIGN KEY (cliniqueNumero) REFERENCES VETDB.Clinique(numero);
-ALTER TABLE VETDB.Clinique ADD CONSTRAINT cliniqueFK 
+ALTER TABLE VETDB.Clinique ADD CONSTRAINT cliniqueFK
 	FOREIGN KEY (gestionnaireNumero) REFERENCES VETDB.Employe(numero);
 `;

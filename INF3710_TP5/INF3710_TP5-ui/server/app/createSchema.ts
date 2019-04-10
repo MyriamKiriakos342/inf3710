@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS vetdb.Animal(
 	dateNaissance DATE NOT NULL,
 	dateInscription DATE NOT NULL,
 	etatActuel VARCHAR(15) NOT NULL,
-	PRIMARY KEY(numero),
+	PRIMARY KEY(numero, cliniqueNumero),
 	FOREIGN KEY(proprietaireNumero, cliniqueNumero) REFERENCES vetdb.Proprietaire(numero, cliniqueNumero)
 );
 CREATE TABLE IF NOT EXISTS vetdb.Examen(
