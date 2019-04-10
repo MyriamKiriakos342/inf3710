@@ -27,17 +27,17 @@ export class AnimalComponent implements OnInit {
                       animalType: string,
                       animalDescription: string,
                       animalEtatActuel: string,
-                      animalDateNaissance: string,
-                      animalDateInscription: string): void {
+                      animalDateNaissance: Date,
+                      animalDateInscription: Date): void {
     const animal: Animal = {"numero": animalNo,
-                            "cliniqueNumero": animalClinique,
-                            "proprietaireNumero": animalProprietaire,
-                            "nom": animalNom,
-                            "type": animalType,
-                            "description": animalDescription,
-                            "etatActuel": animalEtatActuel,
-                            "dateNaissance": animalDateNaissance,
-                            "dateInscription": animalDateInscription
+                            cliniqueNo: animalClinique,
+                            proprietaireNumero: animalProprietaire,
+                            nom: animalNom,
+                            type: animalType,
+                            description: animalDescription,
+                            etatActuel: animalEtatActuel,
+                            dateNaissance: animalDateNaissance,
+                            dateInscription: animalDateInscription
     };
     this.communicationService.insertAnimal(animal).subscribe((res: number) => {
         if (res > 0) {

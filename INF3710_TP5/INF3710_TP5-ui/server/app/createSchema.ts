@@ -1,96 +1,96 @@
-export const schema: string = `SET search_path = vetdb;
+export const schema: string = `set search_path = vetdb;
 
-DROP SCHEMA IF EXISTS vetdb CASCADE;
-CREATE SCHEMA vetdb;
-DROP DOMAIN IF EXISTS vetdb.SexType;
-DROP TABLE IF EXISTS vetdb.Clinique;
-DROP TABLE IF EXISTS vetdb.Personnel;
-DROP TABLE IF EXISTS vetdb.Examen;
-DROP TABLE IF EXISTS vetdb.Traitement;
-DROP TABLE IF EXISTS vetdb.Animal;
-DROP TABLE IF EXISTS vetdb.Proprietaire;
-DROP TABLE IF EXISTS vetdb.Resultat;
-CREATE DOMAIN vetdb.SexType AS CHAR
-	CHECK(VALUE IN ('M','F'));
-CREATE TABLE IF NOT EXISTS vetdb.Clinique(
-	numero VARCHAR(10) NOT NULL,
-	rue VARCHAR(20) NOT NULL,
-	ville VARCHAR(20) NOT NULL,
-	province VARCHAR(20) NOT NULL,
-	codePostal VARCHAR(6) NOT NULL,
-	gestionnaireNo VARCHAR(10) NOT NULL,
-	telecopieur VARCHAR(12) NOT NULL,
-	telephone VARCHAR(12) NOT NULL,
-	PRIMARY KEY(numero)
+drop schema if exists vetdb cascade;
+create schema vetdb;
+drop domain if exists vetdb.sextype;
+drop table if exists vetdb.clinique;
+drop table if exists vetdb.personnel;
+drop table if exists vetdb.examen;
+drop table if exists vetdb.traitement;
+drop table if exists vetdb.animal;
+drop table if exists vetdb.proprietaire;
+drop table if exists vetdb.resultat;
+create domain vetdb.sextype as char
+	check(value in ('m','f'));
+create table if not exists vetdb.clinique(
+	numero varchar(10) not null,
+	rue varchar(20) not null,
+	ville varchar(20) not null,
+	province varchar(20) not null,
+	codepostal varchar(6) not null,
+	gestionnaireno varchar(10) not null,
+	telecopieur varchar(12) not null,
+	telephone varchar(12) not null,
+	primary key(numero)
 );
-CREATE TABLE IF NOT EXISTS vetdb.Proprietaire(
-	numero VARCHAR(10) NOT NULL,
-	cliniqueNumero VARCHAR(10) NOT NULL,
-	nom VARCHAR(20) NOT NULL,
-	adresse VARCHAR(50) NOT NULL,
-	telephone VARCHAR(15) NOT NULL,
-	PRIMARY KEY(numero, cliniqueNumero),
-	FOREIGN KEY(cliniqueNumero) REFERENCES vetdb.Clinique(numero)
+create table if not exists vetdb.proprietaire(
+	numero varchar(10) not null,
+	cliniquenumero varchar(10) not null,
+	nom varchar(20) not null,
+	adresse varchar(50) not null,
+	telephone varchar(15) not null,
+	primary key(numero, cliniquenumero),
+	foreign key(cliniquenumero) references vetdb.clinique(numero)
 );
-CREATE TABLE IF NOT EXISTS vetdb.Employe(
-	numero VARCHAR(10) NOT NULL,
-	cliniqueNumero VARCHAR(10) NOT NULL,
-	nom VARCHAR(20) NOT NULL,
-	prenom VARCHAR(20) NOT NULL,
-	adresse VARCHAR(50) NOT NULL,
-	telephone VARCHAR(15) NOT NULL,
-	dateNaissance date NOT NULL,
-	sexe vetdb.SexType DEFAULT 'M',
-	nas VARCHAR(11) UNIQUE NOT NULL,
-	fonction VARCHAR(15) NOT NULL,
-	salaire NUMERIC(10,0),
-	PRIMARY KEY(numero)
+create table if not exists vetdb.employe(
+	numero varchar(10) not null,
+	cliniquenumero varchar(10) not null,
+	nom varchar(20) not null,
+	prenom varchar(20) not null,
+	adresse varchar(50) not null,
+	telephone varchar(15) not null,
+	datenaissance date not null,
+	sexe vetdb.sextype default 'm',
+	nas varchar(11) unique not null,
+	fonction varchar(15) not null,
+	salaire numeric(10,0),
+	primary key(numero)
 );
-CREATE TABLE IF NOT EXISTS vetdb.Veterinaire(
-	numeroEmploye VARCHAR(10) NOT NULL UNIQUE,
-	estEnService bool NOT NULL,
-    PRIMARY KEY(numeroEmploye),
-	FOREIGN KEY(numeroEmploye) REFERENCES vetdb.Employe(numero)
+create table if not exists vetdb.veterinaire(
+	numeroemploye varchar(10) not null unique,
+	estenservice bool not null,
+    primary key(numeroemploye),
+	foreign key(numeroemploye) references vetdb.employe(numero)
 );
-CREATE TABLE IF NOT EXISTS vetdb.Traitement(
-	numero VARCHAR(10) NOT NULL,
-	description VARCHAR(50) NOT NULL,
-	cout NUMERIC(7,2) NOT NULL,
-	PRIMARY KEY(numero)
+create table if not exists vetdb.traitement(
+	numero varchar(10) not null,
+	description varchar(50) not null,
+	cout numeric(7,2) not null,
+	primary key(numero)
 );
-CREATE TABLE IF NOT EXISTS vetdb.Animal(
-	numero VARCHAR(10) NOT NULL UNIQUE,
-	proprietaireNumero VARCHAR(10) NOT NULL,
-	cliniqueNumero VARCHAR(10) NOT NULL,
-	nom VARCHAR(20) NOT NULL,
-	type VARCHAR(15) NOT NULL,
-	description VARCHAR(50) NOT NULL,
-	dateNaissance DATE NOT NULL,
-	dateInscription DATE NOT NULL,
-	etatActuel VARCHAR(15) NOT NULL,
-	PRIMARY KEY(numero, cliniqueNumero),
-	FOREIGN KEY(proprietaireNumero, cliniqueNumero) REFERENCES vetdb.Proprietaire(numero, cliniqueNumero)
+create table if not exists vetdb.animal(
+	numero varchar(10) not null unique,
+	proprietairenumero varchar(10) not null,
+	cliniquenumero varchar(10) not null,
+	nom varchar(20) not null,
+	type varchar(15) not null,
+	description varchar(50) not null,
+	datenaissance date not null,
+	dateinscription date not null,
+	etatactuel varchar(15) not null,
+	primary key(numero, cliniquenumero),
+	foreign key(proprietairenumero, cliniquenumero) references vetdb.proprietaire(numero, cliniquenumero)
 );
-CREATE TABLE IF NOT EXISTS vetdb.Examen(
-	numero VARCHAR(10) NOT NULL,
-	veterinaireNumero VARCHAR(10) NOT NULL,
-	numeroAnimal VARCHAR(10) NOT NULL,
-	date DATE NOT NULL,
-	heure time NOT NULL,
-	description VARCHAR(50) NOT NULL,
-	PRIMARY KEY(numero, numeroAnimal),
-	FOREIGN KEY(veterinaireNumero) REFERENCES vetdb.Veterinaire(numeroEmploye), 
-	FOREIGN KEY(numeroAnimal) REFERENCES vetdb.Animal(numero)
+create table if not exists vetdb.examen(
+	numero varchar(10) not null,
+	veterinairenumero varchar(10) not null,
+	numeroanimal varchar(10) not null,
+	date date not null,
+	heure time not null,
+	description varchar(50) not null,
+	primary key(numero, numeroanimal),
+	foreign key(veterinairenumero) references vetdb.veterinaire(numeroemploye), 
+	foreign key(numeroanimal) references vetdb.animal(numero)
 );
-CREATE TABLE IF NOT EXISTS vetdb.Prescription(
-	numeroExamen VARCHAR(10) NOT NULL,
-	numeroTraitement VARCHAR(10) NOT NULL,
-	numeroAnimal VARCHAR(10) NOT NULL,
-	qteTraitement NUMERIC(2,0) NOT NULL,
-	dateDebut DATE NOT NULL,
-	dateFin DATE NOT NULL,
-	PRIMARY KEY(numeroExamen, numeroTraitement),
-	FOREIGN KEY(numeroExamen, numeroAnimal) REFERENCES vetdb.Examen(numero, numeroAnimal),
-	FOREIGN KEY(numeroTraitement) REFERENCES vetdb.Traitement(numero)
+create table if not exists vetdb.prescription(
+	numeroexamen varchar(10) not null,
+	numerotraitement varchar(10) not null,
+	numeroanimal varchar(10) not null,
+	qtetraitement numeric(2,0) not null,
+	datedebut date not null,
+	datefin date not null,
+	primary key(numeroexamen, numerotraitement),
+	foreign key(numeroexamen, numeroanimal) references vetdb.examen(numero, numeroanimal),
+	foreign key(numerotraitement) references vetdb.traitement(numero)
 );
 `;

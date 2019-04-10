@@ -3,8 +3,8 @@ import { inject, injectable } from "inversify";
 import * as pg from "pg";
 import { Animal } from "../../../common/tables/Animal";
 import { Clinique } from "../../../common/tables/Clinique";
+import { Prescription } from "../../../common/tables/Prescription";
 import { Proprietaire } from "../../../common/tables/Proprietaire";
-import { Presciption, Prescription } from "../../../common/tables/Prescription";
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
 
@@ -19,27 +19,29 @@ export class DatabaseController {
                    (req: Request, res: Response, next: NextFunction) => {
                     // Send the request to the service and send the response
                     this.databaseService.getAnimals().then((result: pg.QueryResult) => {
-                    const animals: Animal[] = result.rows.map((animal: Animal) => (
+                    const animals: Animal[] = result.rows.map((animal: any) => (
                         {
                             numero: animal.numero,
-                            cliniqueNumero: animal.cliniqueNumero,
-                            proprietaireNumero: animal.proprietaireNumero,
+                            cliniqueNo: animal.cliniquenumero,
+                            proprietaireNumero: animal.proprietairenumero,
                             nom: animal.nom,
                             type: animal.type,
                             description: animal.description,
-                            etatActuel: animal.etatActuel,
-                            dateNaissance: animal.dateNaissance,
-                            dateInscription: animal.dateInscription
+                            etatActuel: animal.etatactuel,
+                            dateNaissance: animal.datenaissance,
+                            dateInscription: animal.dateinscription,
                     }));
+                    console.dir(animals);
                     res.json(animals);
                 }).catch((e: Error) => {
                     console.error(e.stack);
                 });
             });
-        router.get("/proprietaire",
+        router.get("/proprietaire/init",
                    (req: Request, res: Response, next: NextFunction) => {
-             this.databaseService.getProprietaires().then((result: pg.QueryResult) => {
-             const proprietaires: Proprietaire[] = result.rows.map((proprietaire: Proprietaire) => (
+                console.dir("je suis appeler");
+                this.databaseService.getProprietaires().then((result: pg.QueryResult) => {
+                const proprietaires: Proprietaire[] = result.rows.map((proprietaire: Proprietaire) => (
                  {
                      numero: proprietaire.numero,
                      nom: proprietaire.nom,
@@ -47,13 +49,31 @@ export class DatabaseController {
                      adresse: proprietaire.adresse,
                      telephone: proprietaire.telephone,
              }));
-             console.dir(proprietaires);
-             res.json(proprietaires);
+
+        res.json(proprietaires);
          }).catch((e: Error) => {
              console.error(e.stack);
          });
      });
+/*
+        router.get("/proprietaire/:cliniqueNo",
+                   (req: Request, res: Response, next: NextFunction) => {
+                    console.dir("moi aussi");
+                    this.databaseService.getProprietairesByClinique(req.params.cliniqueNo).then((result: pg.QueryResult) => {
+                    const proprietaires: Proprietaire[] = result.rows.map((proprietaire: Proprietaire) => (
+   {
+       numero: proprietaire.numero,
+       nom: proprietaire.nom,
+       cliniqueNo: proprietaire.cliniqueNo,
+       adresse: proprietaire.adresse,
+       telephone: proprietaire.telephone,
+}));
 
+                    res.json(proprietaires);
+}).catch((e: Error) => {
+console.error(e.stack);
+});
+});*/
         router.get("/clinique",
                    (req: Request, res: Response, next: NextFunction) => {
             // Send the request to the service and send the response
@@ -92,7 +112,7 @@ export class DatabaseController {
                 numeroExamen: prescription.numeroExamen,
                 numeroAnimal: prescription.numeroAnimal,
                 qteTraitement: prescription.qteTraitement,
-                dateDebut: prescription.qteTraitement,
+                dateDebut: prescription.dateDebut,
                 dateFin: prescription.dateFin,
 
             }));

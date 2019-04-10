@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { Router } from "@angular/router";
 import { Animal } from "../../../../common/tables/Animal";
 
 @Component({
@@ -8,8 +9,10 @@ import { Animal } from "../../../../common/tables/Animal";
 })
 export class FicheAnimalComponent {
   @Input() public animal: Animal;
-  public ngInit(): void {
-    console.dir(this.animal);
+  public constructor(public router: Router) {
+  }
+  public accederInfo(animal: Animal): void {
+    this.router.navigateByUrl("traitement/" + animal).catch((erreur: unknown) => {alert(erreur); });
   }
 
 }

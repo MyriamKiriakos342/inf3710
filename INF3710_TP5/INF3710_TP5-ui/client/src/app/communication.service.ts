@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Animal } from "../../../common/tables/Animal";
 import {Clinique} from "../../../common/tables/Clinique";
 import {Proprietaire} from "../../../common/tables/Proprietaire";
-import {Traitement} from "../../../common/tables/Traitement";
+import {Prescription} from "../../../common/tables/Prescription";
 // tslint:disable-next-line:ordered-imports
 import { of, Observable, concat, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -28,19 +28,27 @@ export class CommunicationService {
     }
     public getProprietaires(): Observable<Proprietaire[]> {
 
-        return this.http.get<Proprietaire[]>(this.BASE_URL + "/proprietaire").pipe(
+        return this.http.get<Proprietaire[]>(this.BASE_URL + "/proprietaire/init").pipe(
             catchError(this.handleError<Proprietaire[]>()),
         );
     }
+
+    public getProprietaireByClinique(cliniqueNo: string): Observable<Proprietaire[]> {
+
+        return this.http.get<Proprietaire[]>(this.BASE_URL + "/proprietaire/" + cliniqueNo).pipe(
+            catchError(this.handleError<Proprietaire[]>()),
+        );
+    }
+
     public getCliniques(): Observable<Clinique[]> {
         return this.http.get<Clinique[]>(this.BASE_URL + "/clinique").pipe(
             catchError(this.handleError<Clinique[]>()),
         );
     }
 
-    public getTraitementsByAnimals(animal: Animal): Observable<Traitement[]> {
-        return this.http.get<Traitement[]>(this.BASE_URL + "/traitement" + "/" + animal.numero + "/" + animal.cliniqueNumero).pipe(
-            catchError(this.handleError<Traitement[]>()),
+    public getTraitementsByAnimals(animal: Animal): Observable<Prescription[]> {
+        return this.http.get<Prescription[]>(this.BASE_URL + "/traitement/" + animal.numero + "/" + animal.cliniqueNo).pipe(
+            catchError(this.handleError<Prescription[]>()),
             );
     }
     public insertAnimal(animal: Animal): Observable<number> {

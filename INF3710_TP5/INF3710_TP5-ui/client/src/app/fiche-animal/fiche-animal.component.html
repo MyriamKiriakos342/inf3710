@@ -3,7 +3,7 @@
       <thead>
       </thead>
       <tbody>
-        <tr *ngFor="let animal of animals">
+        <tr (click)="accederInfo(animal)">
           <td> {{animal.numero}}</td>
           <td> {{animal.proprietaireNumero}}</td>
           <td> {{animal.cliniqueNumero}}</td>

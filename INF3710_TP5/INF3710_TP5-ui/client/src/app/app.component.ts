@@ -22,12 +22,6 @@ export class AppComponent implements OnInit {
         });
     }
 
-    public createDB(): void {
-        this.communicationService.setUpDatabase().subscribe((res: any) => {
-            console.log(res);
-        });
-    }
-
     public accederAjouter(): void {
         this.router.navigateByUrl("ajout").catch(() => alert("Page introuvable"));
     }

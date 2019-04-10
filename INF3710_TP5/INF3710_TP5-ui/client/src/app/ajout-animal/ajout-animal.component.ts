@@ -26,7 +26,6 @@ export class AjoutAnimalComponent implements OnInit {
     this.communicationService.getProprietaires().subscribe((proprietaires: Proprietaire[]) =>
     this.proprietaires = proprietaires);
   }
-
   public ngOnInit(): void {
     this.getClinique();
     this.getProprietaire();

@@ -3,7 +3,7 @@
     <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
       Erreur!
     </div>
-      <h2>Liste de traitements</h2>
+      <h2>Liste de traitements de {{name}}</h2>
      <div style="align-items: center" #infoTraitements>
         <table id ="ht" align="center" border="1" width="350">
             <thead>
@@ -13,21 +13,15 @@
                 <td> Numero Animal{{prescription.numeroAnimal}}</td>
                 <td> Numero Examen: {{prescription.numeroExamen}}</td>
                
-                <td> {{prescription.cliniqueNumero}}</td>
-                <td> {{prescription.nom}}</td>
+                <td> Numero Traitement: {{prescription.numero}}</td>
+                <td> {{prescription.qteTraitement}}</td>
                 <td> {{prescription.type}}</td>
                 <td> {{prescription.description}}</td>
-                <td> {{prescription.etatActual}}</td>
-                <td> {{prescription.dateNaissance}}</td>
+                <td> {{prescription.dateFin}}</td>
+                <td> {{prescription.dateDebut}}</td>
                 <td> {{prescription.cout}}</td>
               </tr>
             </tbody>
           </table>
     </div>
     </div>
-    
-    numeroExamen: string,
-    numeroAnimal: string,
-    qteTraitement: number,
-    dateDebut: Date,
-    dateFin: 

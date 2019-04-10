@@ -1,5 +1,5 @@
-import { Component, HostListener, OnInit } from "@angular/core";
-import { Traitement } from "../../../../common/tables/Traitement";
+import { Component, OnInit } from "@angular/core";
+import { Prescription } from "../../../../common/tables/Prescription";
 import { CommunicationService } from "../communication.service";
 
 @Component({
@@ -11,17 +11,11 @@ import { CommunicationService } from "../communication.service";
 export class TraitementComponent implements OnInit {
   public longueurMax: number = 15;
   public name: string;
-  public treatments: Traitement[];
+  public prescriptions: Prescription[];
   public constructor(private communicationService: CommunicationService) { }
-  @HostListener("document:keypress.enter",  ["$event"])
-    public pressEnter(event: KeyboardEvent): void {
-      event.preventDefault();
-      this.searchTreatements();
-    }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.communicationService.getTraitementsByAnimals(name).subscribe((prescriptions: Prescription[]) =>
+     {this.prescriptions = prescriptions; });
   }
-  public searchTreatements() {
-    this.communicationService.getTraitementsByAnimals(name).subscribe((treatments: Traitement[]) => {this.treatments = treatments; });
   }
-}
