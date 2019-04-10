@@ -56,8 +56,4 @@ export class AnimalComponent implements OnInit {
   public ngOnInit(): void {
     this.getAnimals();
   }
-
-  public search(): void {
-    //const value = document.getElementById("input");
-  }
 }
