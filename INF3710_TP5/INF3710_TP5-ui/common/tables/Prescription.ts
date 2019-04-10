@@ -1,6 +1,7 @@
-export interface Prescription {
+import { Traitement } from "./Traitement";
+
+export interface Prescription extends Traitement {
     numeroExamen: string,
-    numeroTraitement: string,
     numeroAnimal: string,
     qteTraitement: number,
     dateDebut: Date,

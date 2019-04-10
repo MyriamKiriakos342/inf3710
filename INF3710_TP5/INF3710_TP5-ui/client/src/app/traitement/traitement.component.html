@@ -3,13 +3,31 @@
     <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
       Erreur!
     </div>
-      <mat-form-field style="list-style: none;">
-        Entrer la cl/ primaire de l'animal dont vous voulez recevoir les informations! :
-         <input matInput class="form-control col-md-4" #animalNo (change)="searchTreatements()" [(ngModel)]="name">
-      </mat-form-field>
+      <h2>Liste de traitements</h2>
      <div style="align-items: center" #infoTraitements>
-      <table></table>
+        <table id ="ht" align="center" border="1" width="350">
+            <thead>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prescription of Prescription">
+                <td> Numero Animal{{prescription.numeroAnimal}}</td>
+                <td> Numero Examen: {{prescription.numeroExamen}}</td>
+               
+                <td> {{prescription.cliniqueNumero}}</td>
+                <td> {{prescription.nom}}</td>
+                <td> {{prescription.type}}</td>
+                <td> {{prescription.description}}</td>
+                <td> {{prescription.etatActual}}</td>
+                <td> {{prescription.dateNaissance}}</td>
+                <td> {{prescription.cout}}</td>
+              </tr>
+            </tbody>
+          </table>
     </div>
     </div>
     
-  
+    numeroExamen: string,
+    numeroAnimal: string,
+    qteTraitement: number,
+    dateDebut: Date,
+    dateFin: 

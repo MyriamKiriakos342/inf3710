@@ -8,5 +8,8 @@ import { Animal } from "../../../../common/tables/Animal";
 })
 export class FicheAnimalComponent {
   @Input() public animal: Animal;
+  public ngInit(): void {
+    console.dir(this.animal);
+  }
 
 }

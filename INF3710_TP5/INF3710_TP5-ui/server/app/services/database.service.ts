@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
+import { Animal } from "../../../common/tables/Animal";
 import {schema} from "../createSchema";
 import {data} from "../populateDB";
-import { Animal } from "../../../common/tables/Animal";
 
 @injectable()
 export class DatabaseService {
@@ -55,7 +55,7 @@ export class DatabaseService {
 
     public async searchAnimal(name: string): Promise<pg.QueryResult> {
 
-        return this.pool.query(`SELECT * FROM VETDB.Animal WHERE nom LIKE %name%;`);
+        return this.pool.query(`SELECT * FROM VETDB.Animal WHERE nom LIKE '%${name}%';`);
     }
     public async deleteAnimal(animal: Animal): Promise<pg.QueryResult> {
 
@@ -63,9 +63,11 @@ export class DatabaseService {
     }
     public async getTraitementsByAnimals(animalNo: string, cliniqueNo: string): Promise<pg.QueryResult> {
 
-        return this.pool.query(`SELECT p.*, t.* FROM VETDB.Prescription p, VETDB.Traitement t
-                WHERE p.numeroAnimal = ${animalNo} AND t.numero = p.numeroTraitement AND ${cliniqueNo} =
-                (SELECT cliniqueNo FROM animal WHERE numero=${animalNo});`);
+        return this.pool.query(`SELECT p.*, t.*
+        FROM VETDB.Pescription p
+        LEFT OUTER JOIN VETDB.Traitement t ON (p.numeroTraitement  = t.numero)
+        WHERE p.numeroAnimal = ${animalNo} AND ${cliniqueNo} IN (SELECT cliniqueNumero FROM animal WHERE ${animalNo} = numero);`);
+
     }
     public async calculateBill(animal: Animal): Promise<pg.QueryResult> {
 

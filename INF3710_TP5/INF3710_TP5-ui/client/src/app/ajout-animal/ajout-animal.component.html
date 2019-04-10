@@ -15,13 +15,16 @@
         </mat-select>
         nom : <input matInput  maxlength="10" #animalNom matInput>
         type : <input matInput maxlength="10" #animalType>
-        description : <input matInput  #animalDescription>
+        description : <input   #animalDescription>
         etat actuel : <mat-select  #animalEtatActuel >
           <mat-option value="vivant">vivant</mat-option>
           <mat-option value="decede">decede</mat-option>
-        </mat-select>>
-        date de naissance : <input matInput type="date" #animalDateNaissance>
-        date d'inscription : <input matInput  type="date"form-control col-md-4" #animalDateInscription >
+        </mat-select>
+        date de naissance : <input matInput placeholder="Choose a date">
+      
+        date d'inscription :<input matInput placeholder="Choose a date">
+        <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>-->
       <button type="button" (click)="insertAnimal(animalNo.value,
                                                                               animalClinique.value,
                                                                               animalProprietaire.value,

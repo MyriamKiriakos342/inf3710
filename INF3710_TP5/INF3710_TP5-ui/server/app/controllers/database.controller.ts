@@ -4,7 +4,7 @@ import * as pg from "pg";
 import { Animal } from "../../../common/tables/Animal";
 import { Clinique } from "../../../common/tables/Clinique";
 import { Proprietaire } from "../../../common/tables/Proprietaire";
-import { Traitement } from "../../../common/tables/Traitement";
+import { Presciption, Prescription } from "../../../common/tables/Prescription";
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
 
@@ -14,26 +14,6 @@ export class DatabaseController {
 
     public get router(): Router {
         const router: Router = Router();
-
-        router.post("/createSchema",
-                    (req: Request, res: Response, next: NextFunction) => {
-                    this.databaseService.createSchema().then((result: pg.QueryResult) => {
-                        console.log("CECI EST UNE FONCTION DE TEST SEULEMENT");
-                        res.json(result);
-                    }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
-                });
-
-        router.post("/populateDb",
-                    (req: Request, res: Response, next: NextFunction) => {
-                    this.databaseService.populateDb().then((result: pg.QueryResult) => {
-                        console.log("CECI EST UNE FONCTION DE TEST SEULEMENT");
-                        res.json(result);
-                    }).catch((e: Error) => {
-                        console.error(e.stack);
-                    });
-        });
 
         router.get("/animal",
                    (req: Request, res: Response, next: NextFunction) => {
@@ -58,7 +38,6 @@ export class DatabaseController {
             });
         router.get("/proprietaire",
                    (req: Request, res: Response, next: NextFunction) => {
-             // Send the request to the service and send the response
              this.databaseService.getProprietaires().then((result: pg.QueryResult) => {
              const proprietaires: Proprietaire[] = result.rows.map((proprietaire: Proprietaire) => (
                  {
@@ -68,6 +47,7 @@ export class DatabaseController {
                      adresse: proprietaire.adresse,
                      telephone: proprietaire.telephone,
              }));
+             console.dir(proprietaires);
              res.json(proprietaires);
          }).catch((e: Error) => {
              console.error(e.stack);
@@ -77,7 +57,7 @@ export class DatabaseController {
         router.get("/clinique",
                    (req: Request, res: Response, next: NextFunction) => {
             // Send the request to the service and send the response
-            this.databaseService.getProprietaires().then((result: pg.QueryResult) => {
+            this.databaseService.getCliniques().then((result: pg.QueryResult) => {
             const cliniques: Clinique[] = result.rows.map((clinique: Clinique) => (
             {
                 numero: clinique.numero,
@@ -89,6 +69,7 @@ export class DatabaseController {
                 telecopieur: clinique.telecopieur,
                 telephone: clinique.telephone,
             }));
+            console.dir(cliniques);
             res.json(cliniques);
             }).catch((e: Error) => {
             console.error(e.stack);
@@ -103,14 +84,19 @@ export class DatabaseController {
         router.get("/traitment/:animalNo/:cliniqueNo",
                    (req: Request, res: Response, next: NextFunction) => {
             this.databaseService.getTraitementsByAnimals(req.params.animalNo, req.params.cliniqueNo).then((result: pg.QueryResult) => {
-            const traitements: Traitement[] = result.rows.map((traitment: Traitement) => (
+            const prescriptions: Prescription[] = result.rows.map((prescription: Prescription) => (
             {
-                cout: traitment.cout,
-                description: traitment.description,
-                numero: traitment.numero,
+                cout: prescription.cout,
+                numero: prescription.numero,
+                description: prescription.description,
+                numeroExamen: prescription.numeroExamen,
+                numeroAnimal: prescription.numeroAnimal,
+                qteTraitement: prescription.qteTraitement,
+                dateDebut: prescription.qteTraitement,
+                dateFin: prescription.dateFin,
 
             }));
-            res.json(traitements);
+            res.json(prescriptions);
             }).catch((e: Error) => {
             console.error(e.stack);
             });
