@@ -10,7 +10,6 @@ import { AnimalComponent } from "./animal/animal.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CommunicationService } from "./communication.service";
-import { FicheAnimalComponent } from "./fiche-animal/fiche-animal.component";
 import { ListeAnimauxComponent } from "./liste-animaux/liste-animaux.component";
 import { TraitementComponent } from "./traitement/traitement.component";
 
@@ -19,7 +18,6 @@ import { TraitementComponent } from "./traitement/traitement.component";
     AppComponent,
     AnimalComponent,
     TraitementComponent,
-    FicheAnimalComponent,
     AjoutAnimalComponent,
     ListeAnimauxComponent,
   ],

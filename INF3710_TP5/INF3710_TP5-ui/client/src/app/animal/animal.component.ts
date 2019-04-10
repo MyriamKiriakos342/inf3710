@@ -49,12 +49,15 @@ export class AnimalComponent implements OnInit {
   public getAnimals(): void {
 
     this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
-      console.dir(animals);
       this.animals = animals;
     });
 }
 
   public ngOnInit(): void {
     this.getAnimals();
+  }
+
+  public search(): void {
+    //const value = document.getElementById("input");
   }
 }

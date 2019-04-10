@@ -3,8 +3,8 @@ import { inject, injectable } from "inversify";
 import * as pg from "pg";
 import { Animal } from "../../../common/tables/Animal";
 import { Clinique } from "../../../common/tables/Clinique";
+import { Prescription } from "../../../common/tables/Prescription";
 import { Proprietaire } from "../../../common/tables/Proprietaire";
-import { Presciption, Prescription } from "../../../common/tables/Prescription";
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
 
