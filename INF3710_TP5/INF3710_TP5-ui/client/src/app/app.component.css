@@ -12,4 +12,17 @@
 }
 .title {
     color: red;
-  }
+}
+
+#app {
+    background-color: #266DD3;
+    text-align: center;
+}
+
+button {
+    background-color: #B1BDCE;
+}
+
+button:hover {
+    background-color: #808A99;
+}

@@ -36,3 +36,27 @@
       margin-bottom: 32px;
     }
   }
+
+input {
+  margin-left: 40%;
+}
+
+button {
+  background-color: #B1BDCE;
+  width: 150px;
+  margin-top: 5px;
+}
+
+button:hover {
+  background-color: #808A99;
+}
+
+th {
+  width: 110px;
+  text-align: center;
+}
+
+thead {
+  font-weight: 800;
+  font-size: 20px;
+}

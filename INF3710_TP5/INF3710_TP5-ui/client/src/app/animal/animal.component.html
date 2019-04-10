@@ -1,4 +1,30 @@
-<input matInput type="text"><button mat-raised-button>Rechercher</button><br>
-<div *ngFor = "let animal of animals">
-  <app-fiche-animal class="cardList" [animal]=animal></app-fiche-animal>
-</div>
+<input matInput type="text" id="input"><button mat-raised-button (click)="search()">Rechercher</button><br>
+
+  <table id ="ht" align="center" border="1" width="1100">
+      <thead>
+        <td id="numero">Numero</td>
+        <td id="proprio">Proprietaire</td>
+        <td id="clinique">Clinique</td>
+        <td id="nom">Nom</td>
+        <td id="type">Type</td>
+        <td id="description">Description</td>
+        <td id="etat">Etat actuel</td>
+        <td id="dateNaissance" >Date de naissance</td>
+        <td id="dateInscription" >Date d'inscription</td>
+        <td id="option">Options</td>
+      </thead>
+      <tbody *ngFor = "let animal of animals">
+          <td> {{animal.numero}}</td>
+          <td> {{animal.proprietaireNumero}}</td>
+          <td> {{animal.cliniqueNumero}}</td>
+          <td> {{animal.nom}}</td>
+          <td> {{animal.type}}</td>
+          <td> {{animal.description}}</td>
+          <td> {{animal.etatActual}}</td>
+          <td> {{animal.dateNaissance}}</td>
+          <td> {{animal.dateInscription}}</td>
+          <button type="button" mat-raised-button>Modifier</button>
+          <button type="button" mat-raised-button>Supprimer</button>
+      </tbody>
+  </table>
+

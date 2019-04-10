@@ -1,10 +1,9 @@
 <div id="animal">
   <h1> Formulaire d'ajout d'animal </h1>
 
-  <form action="">
-
+  <form>
     <label for="numero">Entrez le numero de l'animal : </label>
-    <input type="text" name="numero" id="numero">
+    <input type="number" name="numero" id="numero">
     <br>
     <label for="cliniqueNumero">Entrez le numero de la clinique : </label>
     <select name="cliniqueNumero" id="cliniqueNumero">
@@ -22,11 +21,11 @@
     <label for="type">Entrez le type d'animal : </label>
     <input type="text" name="type" id="type">
     <br>
-    <label for="description">Entrez les informations importantes a propos de l'animal : </label>
-    <input type="text" name="description" id="description">
+    <label for="description">Entrez une description de l'animal : </label>
+    <textarea name="description" id="description" cols="70" rows="5"></textarea>
     <br>
     <label>Entrez l'etat de l'animal : </label>
-    <input type="checkbox" name="vivant" value="Vivant"> Vivant <br>
+    <input type="checkbox" name="vivant" value="Vivant"> Vivant
     <input type="checkbox" name="decede" value="Decede"> Decede <br>
     <br>
     <label for="dateNaissance">Entrez la date de naissance de l'animal : </label>
@@ -35,8 +34,7 @@
     <label for="dateInscription">Entrez la date d'inscription de l'animal</label>
     <input type="date" name="dateInscription" id="dateInscription">
     <br>
+    <button type="submit" (click)="validate()">Ajouter l'animal</button>
   </form>
 
-
 </div>
-  
