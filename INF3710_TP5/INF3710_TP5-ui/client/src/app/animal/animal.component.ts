@@ -56,4 +56,40 @@ export class AnimalComponent implements OnInit {
   public ngOnInit(): void {
     this.getAnimals();
   }
+
+  public modifyAnimal(e: MouseEvent): void {
+    // const target: HTMLInputElement = e.target as HTMLInputElement;
+    // if ( target !== null) {
+    //   const parent: (Node & ParentNode) | null = target.parentNode;
+    //   if (parent !== null) {
+    //     const classes: string = (parent as HTMLInputElement).className;
+    //     const numero: string = classes.substring(0, 4);
+    //     const animal: Animal | undefined = this.animals.find((animalIndiv: Animal) => {
+    //       return animalIndiv.numero === numero;
+    //     });
+    //     alert("Pour voir le tableau mis a jour, vous devez rafraichir votre page");
+    //   }
+    // }
+  }
+
+  public removeAnimal(e: MouseEvent): void {
+    const target: HTMLInputElement = e.target as HTMLInputElement;
+    if ( target !== null) {
+      const parent: (Node & ParentNode) | null = target.parentNode;
+      if (parent !== null) {
+        const classes: string = (parent as HTMLInputElement).className;
+        const numero: string = classes.substring(0, 4);
+        const animal: Animal | undefined = this.animals.find((animalIndiv: Animal) => {
+          return animalIndiv.numero === numero;
+        });
+        this.communicationService.deleteAnimal((animal as Animal));
+        this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
+          this.animals = animals;
+          console.log(animals);
+        });
+        alert("Pour voir le tableau mis a jour, vous devez rafraichir votre page");
+      }
+
+    }
+  }
 }
