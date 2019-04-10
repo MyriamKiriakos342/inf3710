@@ -1,42 +1,42 @@
+<div id="animal">
+  <h1> Formulaire d'ajout d'animal </h1>
 
-<div id="animal" style="text-align: left">
-    <h1> Animals</h1>
-    <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
-      Insertion sur une cle primaire qui existe deja
-    </div>
-      <mat-form-field style="list-style: none;">
+  <form action="">
 
-        numero : A<input matInput type="number" maxlength="5" #animalNo>
-        clinique : <mat-select #animalClinique >
-          <mat-option *ngFor="let clinique of cliniques">{{clinique.numero}}</mat-option>
-        </mat-select>
-        proprietaire : <mat-select #animalProprietaire >
-          <mat-option *ngFor="let proprietaire of proprietaires" >{{proprietaire.numero}}</mat-option>
-        </mat-select>
-        nom : <input matInput  maxlength="10" #animalNom matInput>
-        type : <input matInput maxlength="10" #animalType>
-        description : <input matInput  #animalDescription>
-        etat actuel : <mat-select  #animalEtatActuel >
-          <mat-option value="vivant">vivant</mat-option>
-          <mat-option value="decede">decede</mat-option>
-        </mat-select>>
-        date de naissance : <input matInput type="date" #animalDateNaissance>
-        date d'inscription : <input matInput  type="date"form-control col-md-4" #animalDateInscription >
-      <button type="button" (click)="insertAnimal(animalNo.value,
-                                                                              animalClinique.value,
-                                                                              animalProprietaire.value,
-                                                                              animalNom.value,
-                                                                              animalType.value,
-                                                                              animalDescription.value,
-                                                                              animalEtatActuel.value,
-                                                                              animalDateNaissance.value,
-                                                                              animalDateInscription.value)" mat-raised-button> Add Animal</button>
-            <button (click)="closeForm()" mat-raised-button>
-              Cancel
-            </button>
-          
-      </mat-form-field>
-     
-    </div>
-    
+    <label for="numero">Entrez le numero de l'animal : </label>
+    <input type="text" name="numero" id="numero">
+    <br>
+    <label for="cliniqueNumero">Entrez le numero de la clinique : </label>
+    <select name="cliniqueNumero" id="cliniqueNumero">
+        <option *ngFor="let clinique of cliniques" value={{clinique.numero}}>{{clinique.numero}}</option>
+    </select>
+    <br>
+    <label for="proprietaireNumero">Entrez le numero du proprietaire : </label>
+    <select name="proprietaireNumero" id="proprietaireNumero">
+      <option *ngFor="let proprietaire of proprietaires" value={{proprietaire.numero}}>{{proprietaire.numero}}</option>
+    </select>
+    <br>
+    <label for="nom">Entrez le nom de l'animal : </label>
+    <input type="text" name="nom" id="nom">
+    <br>
+    <label for="type">Entrez le type d'animal : </label>
+    <input type="text" name="type" id="type">
+    <br>
+    <label for="description">Entrez les informations importantes a propos de l'animal : </label>
+    <input type="text" name="description" id="description">
+    <br>
+    <label>Entrez l'etat de l'animal : </label>
+    <input type="checkbox" name="vivant" value="Vivant"> Vivant <br>
+    <input type="checkbox" name="decede" value="Decede"> Decede <br>
+    <br>
+    <label for="dateNaissance">Entrez la date de naissance de l'animal : </label>
+    <input type="date" name="dateNaissance" id="dateNaissance">
+    <br>
+    <label for="dateInscription">Entrez la date d'inscription de l'animal</label>
+    <input type="date" name="dateInscription" id="dateInscription">
+    <br>
+  </form>
+
+
+</div>
   
