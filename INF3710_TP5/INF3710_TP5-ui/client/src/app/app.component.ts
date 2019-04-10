@@ -11,7 +11,8 @@ import { CommunicationService } from "./communication.service";
 })
 export class AppComponent implements OnInit {
 
-    public constructor(private communicationService: CommunicationService, private router: Router) {
+    public constructor(private communicationService: CommunicationService,
+                       private router: Router) {
     }
 
     public animals: Animal[] = [];

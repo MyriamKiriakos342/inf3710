@@ -12,7 +12,7 @@ export class AjoutAnimalComponent implements OnInit {
   public cliniques: Clinique[];
   public proprietaires: Proprietaire[];
 
-  public constructor(private communicationService: CommunicationService) { 
+  public constructor(private communicationService: CommunicationService) {
     this.cliniques = [];
     this.proprietaires = [];
   }
