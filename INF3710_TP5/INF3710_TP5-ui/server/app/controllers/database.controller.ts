@@ -95,7 +95,7 @@ console.error(e.stack);
             console.error(e.stack);
             });
             });
-        router.post("/animal/delete/:animal",
+        router.delete("/animal/delete/:animal",
                     (req: Request, res: Response, next: NextFunction) => {
      this.databaseService.deleteAnimal(req.params.animal).catch((e: Error) => {
      console.error(e.stack);

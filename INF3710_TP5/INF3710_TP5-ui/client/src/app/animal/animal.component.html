@@ -13,7 +13,7 @@
         <td id="dateInscription" >Date d'inscription</td>
         <td id="option">Options</td>
       </thead>
-      <tbody *ngFor = "let animal of animals" (click)=reacheminement>
+      <tbody *ngFor = "let animal of animals" (click)=reacheminementTraitement(animal)>
           <td> {{animal.numero}}</td>
           <td> {{animal.proprietaireNumero}}</td>
           <td> {{animal.cliniqueNumero}}</td>

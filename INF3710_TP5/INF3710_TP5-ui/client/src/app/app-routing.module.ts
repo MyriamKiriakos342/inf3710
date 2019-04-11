@@ -8,7 +8,7 @@ import { TraitementComponent } from "./traitement/traitement.component";
 const routes: Routes = [
   { path: "app", component: AppComponent },
   { path: "animal", component: AnimalComponent },
-  { path: "traitements/:animal", component: TraitementComponent },
+  { path: "traitements/:animalId /:cliniqueId", component: TraitementComponent },
   { path: "ajout", component: AjoutAnimalComponent }
 ];
 

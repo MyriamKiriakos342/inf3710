@@ -2,6 +2,7 @@ import { Component, NgModule, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { Animal } from "../../../../common/tables/Animal";
 import { CommunicationService } from "../communication.service";
+import { Router } from "@angular/router";
 @NgModule({
   imports: [FlexLayoutModule],
 })
@@ -13,7 +14,7 @@ import { CommunicationService } from "../communication.service";
 
 export class AnimalComponent implements OnInit {
 
-  public constructor(private communicationService: CommunicationService) {
+  public constructor(private communicationService: CommunicationService, private route: Router) {
     this.animals = [];
   }
   public longueurMax: number = 15;
@@ -57,7 +58,11 @@ export class AnimalComponent implements OnInit {
   public ngOnInit(): void {
     this.getAnimals();
   }
-
+  public reacheminementTraitement(animal: Animal): void {
+    this.route.navigateByUrl("/traitement/"+ animal.numero + "/" + animal.cliniqueNumero).catch((erreur: unknown) => {
+        return console.dir(erreur);
+      });
+  }
   public modifyAnimal(e: MouseEvent): void {
     // const target: HTMLInputElement = e.target as HTMLInputElement;
     // if ( target !== null) {

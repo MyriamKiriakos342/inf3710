@@ -3,7 +3,7 @@
 
   <form>
     <label for="numero">Entrez le numero de l'animal : </label>
-    <input type="number" name="numero" id="numero">
+    <input type="number" name="numero" id="numero" (change)="onChange()" [(ngModel)]="this.animal.numero">
     <br>
     <label for="cliniqueNumero">Entrez le numero de la clinique : </label>
     <select name="cliniqueNumero" id="cliniqueNumero" [(ngModel)]="animal.cliniqueNumero">
@@ -34,7 +34,7 @@
     <label for="dateInscription">Entrez la date d'inscription de l'animal</label>
     <input type="date" name="dateInscription" id="dateInscription" [(ngModel)]="animal.dateInscription">
     <br>
-    <button type="submit" (click)="validate()">Ajouter l'animal</button>
+    <button type="submit" (click)="onChange()">Ajouter l'animal</button>
   </form>
 
 </div>

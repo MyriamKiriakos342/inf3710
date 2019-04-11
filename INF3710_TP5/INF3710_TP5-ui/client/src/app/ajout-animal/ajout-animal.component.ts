@@ -13,7 +13,6 @@ export class AjoutAnimalComponent implements OnInit {
   public cliniques: Clinique[];
   public proprietaires: Proprietaire[];
   public animal: Animal;
-
   public constructor(private communicationService: CommunicationService) {
     this.cliniques = [];
     this.proprietaires = [];
@@ -34,6 +33,9 @@ export class AjoutAnimalComponent implements OnInit {
   public ngOnInit(): void {
     this.getClinique();
     this.getProprietaire();
+  }
+  public onChange(): void {
+    console.dir(this.animal.numero);
   }
 
 }
