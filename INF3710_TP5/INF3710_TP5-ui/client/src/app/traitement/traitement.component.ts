@@ -22,10 +22,10 @@ export class TraitementComponent implements OnInit {
       this.communicationService.getAnimalByKey(this.route.snapshot.paramMap.get("animalId")!,
                                                this.route.snapshot.paramMap.get("cliniqueId")!).subscribe((animal: Animal) => {
                                                  console.dir(animal);
-                                                  this.name = animal.nom;
-                                               });
-      this.communicationService.getTraitementsByAnimals(name).subscribe((prescriptions: Prescription[]) => {
-        console.dir(prescriptions);
-        this.prescriptions = prescriptions; });
+                                                 this.name = animal.nom;
+                                                 this.communicationService.getTraitementsByAnimals(animal).subscribe((prescriptions: Prescription[]) => {
+      console.dir(prescriptions);
+      this.prescriptions = prescriptions; });
+         });
      }
   }

@@ -11,6 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CommunicationService } from "./communication.service";
 import { TraitementComponent } from "./traitement/traitement.component";
+import { ModificationAnimalComponent } from './modification-animal/modification-animal.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { TraitementComponent } from "./traitement/traitement.component";
     AnimalComponent,
     TraitementComponent,
     AjoutAnimalComponent,
+    ModificationAnimalComponent,
   ],
   imports: [
     CommonModule,

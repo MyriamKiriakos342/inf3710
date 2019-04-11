@@ -8,10 +8,10 @@ export class DatabaseService {
 
     // A MODIFIER POUR VOTRE BD
     public connectionConfig: pg.ConnectionConfig = {
-        user: "postgres",
-        database: "vetdb",
-        password: "Letgo007",
-        port: 5432,
+        user: "sysadmin",
+        database: "vet",
+        password: "1234",
+        port: 5433,
         host: "127.0.0.1",
         keepAlive : true
     };
@@ -38,6 +38,11 @@ export class DatabaseService {
     public async getCliniques(): Promise<pg.QueryResult> {
 
         return this.pool.query(`SELECT * FROM vetdb.clinique;`);
+    }
+
+    public async getAnimalByKey(animalNo: string, cliniqueNo: string): Promise<pg.QueryResult> {
+
+        return this.pool.query(`SELECT * FROM vetdb.animal WHERE ${animalNo}= numero AND ${cliniqueNo}=cliniqueNumero;`);
     }
 
     public async searchAnimal(name: string): Promise<pg.QueryResult> {
