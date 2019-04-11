@@ -37,6 +37,27 @@ export class DatabaseController {
                     console.error(e.stack);
                 });
             });
+        router.get("/animal/:animalNo/:cliniqueNo",
+                   (req: Request, res: Response, next: NextFunction) => {
+                    // Send the request to the service and send the response
+                    this.databaseService.getAnimalByKey(req.params.animalNo, req.params.cliniqueNo).then((result: pg.QueryResult) => {
+                    const animals: Animal[] = result.rows.map((animal: any) => (
+                        {
+                            numero: animal.numero,
+                            cliniqueNumero: animal.cliniquenumero,
+                            proprietaireNumero: animal.proprietairenumero,
+                            nom: animal.nom,
+                            type: animal.type,
+                            description: animal.description,
+                            etatActuel: animal.etatactuel,
+                            dateNaissance: animal.datenaissance,
+                            dateInscription: animal.dateinscription,
+                    }));
+                    res.json(animals[0]);
+                }).catch((e: Error) => {
+                    console.error(e.stack);
+                });
+    });
         router.get("/proprietaire/init",
                    (req: Request, res: Response, next: NextFunction) => {
                 console.dir("je suis appeler");
@@ -96,7 +117,7 @@ console.error(e.stack);
             });
             });
         router.delete("/animal/delete/:animal",
-                    (req: Request, res: Response, next: NextFunction) => {
+                      (req: Request, res: Response, next: NextFunction) => {
      this.databaseService.deleteAnimal(req.params.animal).catch((e: Error) => {
      console.error(e.stack);
      });

@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Animal } from "../../../../common/tables/Animal";
 import { Prescription } from "../../../../common/tables/Prescription";
 import { CommunicationService } from "../communication.service";
-import { AnimalComponent } from "../animal/animal.component";
-import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-traitement",
@@ -14,16 +14,18 @@ export class TraitementComponent implements OnInit {
   public longueurMax: number = 15;
   public name: string;
   public prescriptions: Prescription[];
-  public constructor(private communicationService: CommunicationService, private contactService: AnimalComponent, 
+  public constructor(private communicationService: CommunicationService,
                      private route: ActivatedRoute) { }
 
   public ngOnInit(): void {
-    this.route.paramMap.subscribe((params:any) => {
-      console.log(params.get("animalId"));
-      console.log(params.get("cliniqueId"));
-      this.communicationService.getTraitementsByAnimals(name).subscribe((prescriptions: Prescription[]) =>
-     {this.prescriptions = prescriptions; });
-     });
-    
-  }
+      console.dir(this.route.snapshot.paramMap);
+      this.communicationService.getAnimalByKey(this.route.snapshot.paramMap.get("animalId")!,
+                                               this.route.snapshot.paramMap.get("cliniqueId")!).subscribe((animal: Animal) => {
+                                                 console.dir(animal);
+                                                  this.name = animal.nom;
+                                               });
+      this.communicationService.getTraitementsByAnimals(name).subscribe((prescriptions: Prescription[]) => {
+        console.dir(prescriptions);
+        this.prescriptions = prescriptions; });
+     }
   }

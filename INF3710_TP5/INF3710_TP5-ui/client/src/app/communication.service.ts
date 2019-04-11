@@ -26,6 +26,13 @@ export class CommunicationService {
             catchError(this.handleError<Animal[]>()),
         );
     }
+
+    public getAnimalByKey(animalNumero: string, cliniqueNumero: string): Observable<Animal> {
+
+    return this.http.get<Animal>(this.BASE_URL + "/animal/" + animalNumero + "/" + cliniqueNumero).pipe(
+        catchError(this.handleError<Animal>()),
+    );
+}
     public getProprietaires(): Observable<Proprietaire[]> {
 
         return this.http.get<Proprietaire[]>(this.BASE_URL + "/proprietaire/init").pipe(
@@ -78,11 +85,6 @@ export class CommunicationService {
         return this.http.post<number>(this.BASE_URL + "/animal/calculateBill/", animal).pipe(
             catchError(this.handleError<number>()),
         );
-    }
-
-    public setUpDatabase(): Observable<any> {
-        return concat(this.http.post<any>(this.BASE_URL + "/createSchema", []),
-                      this.http.post<any>(this.BASE_URL + "/populateDb", []));
     }
 
     private handleError<T>(result?: T): (error: Error) => Observable<T> {

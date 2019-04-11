@@ -59,7 +59,7 @@ export class AnimalComponent implements OnInit {
     this.getAnimals();
   }
   public reacheminementTraitement(animal: Animal): void {
-    this.route.navigateByUrl("/traitement/"+ animal.numero + "/" + animal.cliniqueNumero).catch((erreur: unknown) => {
+    this.route.navigateByUrl("/traitement/" + animal.numero + "/" + animal.cliniqueNumero).catch((erreur: unknown) => {
         return console.dir(erreur);
       });
   }

@@ -34,7 +34,7 @@ import { TraitementComponent } from "./traitement/traitement.component";
     BrowserAnimationsModule,
     ReactiveFormsModule,
   ],
-  providers: [CommunicationService],
+  providers: [CommunicationService, AnimalComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
