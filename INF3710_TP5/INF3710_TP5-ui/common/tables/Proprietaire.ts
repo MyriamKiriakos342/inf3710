@@ -1,6 +1,6 @@
 export interface Proprietaire {
     numero: string,
-    cliniqueNo: string,
+    cliniqueNumero: string,
     nom: string,
     adresse: string,
     telephone: string,

@@ -13,14 +13,14 @@
         <td id="dateInscription" >Date d'inscription</td>
         <td id="option">Options</td>
       </thead>
-      <tbody *ngFor = "let animal of animals">
+      <tbody *ngFor = "let animal of animals" (click)=reacheminement>
           <td> {{animal.numero}}</td>
           <td> {{animal.proprietaireNumero}}</td>
           <td> {{animal.cliniqueNumero}}</td>
           <td> {{animal.nom}}</td>
           <td> {{animal.type}}</td>
           <td> {{animal.description}}</td>
-          <td> {{animal.etatActual}}</td>
+          <td> {{animal.etatActuel}}</td>
           <td> {{animal.dateNaissance}}</td>
           <td> {{animal.dateInscription}}</td>
           <button type="button" mat-raised-button>Modifier</button>

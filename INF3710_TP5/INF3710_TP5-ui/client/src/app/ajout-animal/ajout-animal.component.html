@@ -6,33 +6,33 @@
     <input type="number" name="numero" id="numero">
     <br>
     <label for="cliniqueNumero">Entrez le numero de la clinique : </label>
-    <select name="cliniqueNumero" id="cliniqueNumero">
+    <select name="cliniqueNumero" id="cliniqueNumero" [(ngModel)]="animal.cliniqueNumero">
         <option *ngFor="let clinique of cliniques" value={{clinique.numero}}>{{clinique.numero}}</option>
     </select>
     <br>
     <label for="proprietaireNumero">Entrez le numero du proprietaire : </label>
-    <select name="proprietaireNumero" id="proprietaireNumero">
+    <select name="proprietaireNumero" id="proprietaireNumero" [(ngModel)]="animal.proprietaireNumero">
       <option *ngFor="let proprietaire of proprietaires" value={{proprietaire.numero}}>{{proprietaire.numero}}</option>
     </select>
     <br>
     <label for="nom">Entrez le nom de l'animal : </label>
-    <input type="text" name="nom" id="nom">
+    <input type="text" name="nom" id="nom"[(ngModel)]="animal.nom">
     <br>
     <label for="type">Entrez le type d'animal : </label>
-    <input type="text" name="type" id="type">
+    <input type="text" name="type" id="type"[(ngModel)]="animal.type">
     <br>
     <label for="description">Entrez une description de l'animal : </label>
-    <textarea name="description" id="description" cols="70" rows="5"></textarea>
+    <textarea name="description" id="description" cols="70" rows="5" [(ngModel)]="animal.description"></textarea>
     <br>
     <label>Entrez l'etat de l'animal : </label>
-    <input type="checkbox" name="vivant" value="Vivant"> Vivant
-    <input type="checkbox" name="decede" value="Decede"> Decede <br>
+    <input type="radio" name="vivant" value="Vivant" name="etat" [(ngModel)]="animal.etat"> Vivant
+    <input type="radio" name="decede" value="Decede" name="etat"> Decede <br>
     <br>
     <label for="dateNaissance">Entrez la date de naissance de l'animal : </label>
-    <input type="date" name="dateNaissance" id="dateNaissance">
+    <input type="date" name="dateNaissance" id="dateNaissance" [(ngModel)]="animal.dateNaissance">
     <br>
     <label for="dateInscription">Entrez la date d'inscription de l'animal</label>
-    <input type="date" name="dateInscription" id="dateInscription">
+    <input type="date" name="dateInscription" id="dateInscription" [(ngModel)]="animal.dateInscription">
     <br>
     <button type="submit" (click)="validate()">Ajouter l'animal</button>
   </form>

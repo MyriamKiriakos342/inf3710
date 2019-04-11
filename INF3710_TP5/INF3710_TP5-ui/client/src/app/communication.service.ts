@@ -33,9 +33,9 @@ export class CommunicationService {
         );
     }
 
-    public getProprietaireByClinique(cliniqueNo: string): Observable<Proprietaire[]> {
+    public getProprietaireByClinique(cliniqueNumero: string): Observable<Proprietaire[]> {
 
-        return this.http.get<Proprietaire[]>(this.BASE_URL + "/proprietaire/" + cliniqueNo).pipe(
+        return this.http.get<Proprietaire[]>(this.BASE_URL + "/proprietaire/" + cliniqueNumero).pipe(
             catchError(this.handleError<Proprietaire[]>()),
         );
     }
@@ -47,7 +47,7 @@ export class CommunicationService {
     }
 
     public getTraitementsByAnimals(animal: Animal): Observable<Prescription[]> {
-        return this.http.get<Prescription[]>(this.BASE_URL + "/traitement/" + animal.numero + "/" + animal.cliniqueNo).pipe(
+        return this.http.get<Prescription[]>(this.BASE_URL + "/traitement/" + animal.numero + "/" + animal.cliniqueNumero).pipe(
             catchError(this.handleError<Prescription[]>()),
             );
     }

@@ -30,7 +30,7 @@ export class AnimalComponent implements OnInit {
                       animalDateNaissance: Date,
                       animalDateInscription: Date): void {
     const animal: Animal = {"numero": animalNo,
-                            cliniqueNo: animalClinique,
+                            cliniqueNumero: animalClinique,
                             proprietaireNumero: animalProprietaire,
                             nom: animalNom,
                             type: animalType,
@@ -50,6 +50,7 @@ export class AnimalComponent implements OnInit {
 
     this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
       this.animals = animals;
+      console.dir(animals);
     });
 }
 

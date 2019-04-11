@@ -2,8 +2,6 @@ import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
 import { Animal } from "../../../common/tables/Animal";
-import {schema} from "../createSchema";
-import {data} from "../populateDB";
 
 @injectable()
 export class DatabaseService {
@@ -33,9 +31,9 @@ export class DatabaseService {
 
         return this.pool.query(`SELECT * FROM vetdb.proprietaire;`);
     }
-    /*public async getProprietairesByClinique(cliniqueNo: string): Promise<pg.QueryResult> {
+    /*public async getProprietairesByClinique(cliniqueNumero: string): Promise<pg.QueryResult> {
 
-        return this.pool.query(`SELECT * FROM vetdb.Proprietaire WHERE ${cliniqueNo} = cliniqueNumero;`);
+        return this.pool.query(`SELECT * FROM vetdb.Proprietaire WHERE ${cliniqueNumero} = cliniqueNumero;`);
     }*/
     public async getCliniques(): Promise<pg.QueryResult> {
 
@@ -48,14 +46,14 @@ export class DatabaseService {
     }
     public async deleteAnimal(animal: Animal): Promise<pg.QueryResult> {
 
-        return this.pool.query(`DELETE FROM vetdb.animal WHERE numero=${animal.numero} AND cliniquenumero=${animal.cliniqueNo};`);
+        return this.pool.query(`DELETE FROM vetdb.animal WHERE numero=${animal.numero} AND cliniquenumero=${animal.cliniqueNumero};`);
     }
-    public async getTraitementsByAnimals(animalNo: string, cliniqueNo: string): Promise<pg.QueryResult> {
+    public async getTraitementsByAnimals(animalNo: string, cliniqueNumero: string): Promise<pg.QueryResult> {
 
         return this.pool.query(`SELECT p.*, t.*
         FROM vetdb.Pescription p
         LEFT OUTER JOIN vetdb.Traitement t ON (p.numerotraitement  = t.numero)
-        WHERE p.numeroanimal = ${animalNo} AND ${cliniqueNo} IN (SELECT cliniquenumero FROM animal WHERE ${animalNo} = numero);`);
+        WHERE p.numeroanimal = ${animalNo} AND ${cliniqueNumero} IN (SELECT cliniquenumero FROM animal WHERE ${animalNo} = numero);`);
 
     }
     public async calculateBill(animal: Animal): Promise<pg.QueryResult> {

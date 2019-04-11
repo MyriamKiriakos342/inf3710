@@ -22,7 +22,7 @@ export class DatabaseController {
                     const animals: Animal[] = result.rows.map((animal: any) => (
                         {
                             numero: animal.numero,
-                            cliniqueNo: animal.cliniquenumero,
+                            cliniqueNumero: animal.cliniquenumero,
                             proprietaireNumero: animal.proprietairenumero,
                             nom: animal.nom,
                             type: animal.type,
@@ -31,8 +31,8 @@ export class DatabaseController {
                             dateNaissance: animal.datenaissance,
                             dateInscription: animal.dateinscription,
                     }));
-                    console.dir(animals);
                     res.json(animals);
+                    console.dir(res);
                 }).catch((e: Error) => {
                     console.error(e.stack);
                 });
@@ -45,7 +45,7 @@ export class DatabaseController {
                  {
                      numero: proprietaire.numero,
                      nom: proprietaire.nom,
-                     cliniqueNo: proprietaire.cliniqueNo,
+                     cliniqueNumero: proprietaire.cliniqueNumero,
                      adresse: proprietaire.adresse,
                      telephone: proprietaire.telephone,
              }));
@@ -56,15 +56,15 @@ export class DatabaseController {
          });
      });
 /*
-        router.get("/proprietaire/:cliniqueNo",
+        router.get("/proprietaire/:cliniqueNumero",
                    (req: Request, res: Response, next: NextFunction) => {
                     console.dir("moi aussi");
-                    this.databaseService.getProprietairesByClinique(req.params.cliniqueNo).then((result: pg.QueryResult) => {
+                    this.databaseService.getProprietairesByClinique(req.params.cliniqueNumero).then((result: pg.QueryResult) => {
                     const proprietaires: Proprietaire[] = result.rows.map((proprietaire: Proprietaire) => (
    {
        numero: proprietaire.numero,
        nom: proprietaire.nom,
-       cliniqueNo: proprietaire.cliniqueNo,
+       cliniqueNumero: proprietaire.cliniqueNumero,
        adresse: proprietaire.adresse,
        telephone: proprietaire.telephone,
 }));
@@ -101,9 +101,9 @@ console.error(e.stack);
      console.error(e.stack);
      });
      });
-        router.get("/traitment/:animalNo/:cliniqueNo",
+        router.get("/traitment/:animalNo/:cliniqueNumero",
                    (req: Request, res: Response, next: NextFunction) => {
-            this.databaseService.getTraitementsByAnimals(req.params.animalNo, req.params.cliniqueNo).then((result: pg.QueryResult) => {
+            this.databaseService.getTraitementsByAnimals(req.params.animalNo, req.params.cliniqueNumero).then((result: pg.QueryResult) => {
             const prescriptions: Prescription[] = result.rows.map((prescription: Prescription) => (
             {
                 cout: prescription.cout,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Animal } from "../../../../common/tables/Animal";
 import { Clinique } from "../../../../common/tables/Clinique";
 import { Proprietaire } from "../../../../common/tables/Proprietaire";
 import { CommunicationService } from "../communication.service";
@@ -11,10 +12,14 @@ import { CommunicationService } from "../communication.service";
 export class AjoutAnimalComponent implements OnInit {
   public cliniques: Clinique[];
   public proprietaires: Proprietaire[];
+  public animal: Animal;
 
   public constructor(private communicationService: CommunicationService) {
     this.cliniques = [];
     this.proprietaires = [];
+    this.animal = {cliniqueNumero: "", nom: "", numero: "", dateInscription: new Date(),
+                   dateNaissance: new Date(), etatActuel: "decede", type: "", description: "", 
+                   proprietaireNumero: ""};
   }
 
   public getClinique(): void {

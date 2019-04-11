@@ -1,6 +1,6 @@
 export interface Employe {
     numero: string,
-    cliniqueNo: string,
+    cliniqueNumero: string,
     nom: string,
     prenom: string,
     adresse: string,

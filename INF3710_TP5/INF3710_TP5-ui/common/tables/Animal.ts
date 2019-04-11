@@ -1,14 +1,11 @@
-export interface Animal extends AnimalPrimaryKey {
-        cliniqueNo: string,
+export interface Animal {
+        cliniqueNumero: string,
         nom: string,
         type: string,
         description: string,
         etatActuel: string,
         dateNaissance: Date,
         dateInscription: Date,
-}
-
-export interface AnimalPrimaryKey {
-        numero: string,
         proprietaireNumero: string,
+        numero: string,
 }
