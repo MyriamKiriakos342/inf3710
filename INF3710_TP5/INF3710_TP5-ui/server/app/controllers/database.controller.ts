@@ -50,7 +50,7 @@ export class DatabaseController {
                      telephone: proprietaire.telephone,
              }));
 
-        res.json(proprietaires);
+                res.json(proprietaires);
          }).catch((e: Error) => {
              console.error(e.stack);
          });
@@ -95,8 +95,8 @@ console.error(e.stack);
             console.error(e.stack);
             });
             });
-        router.get("/animal/delete/:animal",
-                   (req: Request, res: Response, next: NextFunction) => {
+        router.post("/animal/delete/:animal",
+                    (req: Request, res: Response, next: NextFunction) => {
      this.databaseService.deleteAnimal(req.params.animal).catch((e: Error) => {
      console.error(e.stack);
      });
