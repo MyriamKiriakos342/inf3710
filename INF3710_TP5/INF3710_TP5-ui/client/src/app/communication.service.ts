@@ -75,8 +75,8 @@ export class CommunicationService {
         );
     }
 
-    public deleteAnimal(animal: Animal): Observable<void> {
-        return this.http.delete<void>(this.BASE_URL + "/animal/delete/" + animal);
+    public deleteAnimal(numero: string, cliniqueNo: string): Observable<void> {
+        return this.http.delete<void>(this.BASE_URL + "/animal/delete/" + numero + "/" + cliniqueNo);
     }
 
     public getBill(animal: Animal): Observable<number> {

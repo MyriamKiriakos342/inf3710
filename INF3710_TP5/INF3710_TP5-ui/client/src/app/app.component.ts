@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
     public animals: Animal[] = [];
     public ngOnInit(): void {
         this.communicationService.listen().subscribe((m: any) => {
-            console.log(m);
         });
     }
 

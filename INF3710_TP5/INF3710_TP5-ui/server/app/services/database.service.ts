@@ -8,10 +8,10 @@ export class DatabaseService {
 
     // A MODIFIER POUR VOTRE BD
     public connectionConfig: pg.ConnectionConfig = {
-        user: "",
-        database: "",
-        password: "",
-        port: ,
+        user: "sysadmin",
+        database: "vet",
+        password: "1234",
+        port: 5433,
         host: "127.0.0.1",
         keepAlive : true
     };
@@ -42,20 +42,24 @@ export class DatabaseService {
 
     public async getAnimalByKey(animalNo: string, cliniqueNo: string): Promise<pg.QueryResult> {
 
-        return this.pool.query(`SELECT * FROM vetdb.animal WHERE numero='${animalNo}' AND cliniqueNumero='${cliniqueNo}';`);
+        return this.pool.query(`SELECT * FROM vetdb.animal WHERE numero='${animalNo}' AND cliniquenumero='${cliniqueNo}';`);
     }
 
     public async searchAnimal(name: string): Promise<pg.QueryResult> {
         return this.pool.query(`SELECT * FROM vetdb.animal WHERE nom LIKE '%${name}%';`);
     }
-    public async deleteAnimal(animal: Animal): Promise<pg.QueryResult> {
+    public async deleteAnimal(animalNo: string, cliniqueNo: string): Promise<pg.QueryResult> {
+        const VALUES: string[] = [
+            animalNo,
+            cliniqueNo,
+        ];
 
-        return this.pool.query(`DELETE FROM vetdb.animal WHERE numero='${animal.numero}' AND cliniquenumero='${animal.cliniqueNumero}';`);
+        return this.pool.query(`DELETE FROM vetdb.animal WHERE numero=($1) AND cliniquenumero=($2);`, VALUES);
     }
     public async getTraitementsByAnimals(animalNo: string, cliniqueNumero: string): Promise<pg.QueryResult> {
         return this.pool.query(`SELECT DISTINCT p.*, t.*
-        FROM vetdb.Prescription p
-        INNER JOIN vetdb.Traitement t ON (p.numerotraitement  = t.numero)
+        FROM vetdb.prescription p
+        INNER JOIN vetdb.traitement t ON (p.numerotraitement  = t.numero)
         INNER JOIN vetdb.Animal a ON (p.numeroanimal = '${animalNo}')
         WHERE a.cliniquenumero = '${cliniqueNumero}'
         ;`);

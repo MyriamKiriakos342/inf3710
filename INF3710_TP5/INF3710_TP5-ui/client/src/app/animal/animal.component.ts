@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material";
 import { Router } from "@angular/router";
 import { Animal } from "../../../../common/tables/Animal";
 import { CommunicationService } from "../communication.service";
-import { ModificationAnimalComponent } from "../modification-animal/modification-animal.component";
+import { AnimalModificationComponent } from "../animal-modification/animal-modification.component";
 @NgModule({
   imports: [FlexLayoutModule],
 })
@@ -73,17 +73,25 @@ export class AnimalComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    this.dialog.open(ModificationAnimalComponent, dialogConfig);
+    this.dialog.open(AnimalModificationComponent, dialogConfig);
   }
 
   public removeAnimal(animal: Animal): void {
-        this.communicationService.deleteAnimal((animal));
-        alert("Pour voir le tableau mis a jour, vous devez rafraichir votre page");
+    console.dir(animal);
+    this.communicationService.deleteAnimal(animal.numero, animal.cliniqueNumero).subscribe(() => {
+          this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
+            this.animals = animals;
+            console.dir(animals);
+          });
+        }
+
+        );
+
       }
 
   public search(): void {
     this.communicationService.searchAnimals(this.searchName).subscribe((animals: Animal[]) => {
-      console.log("Updated value of animals[] ",animals);
+      // console.log("Updated value of animals[] ", animals);
       this.animals = animals;
     });
   }

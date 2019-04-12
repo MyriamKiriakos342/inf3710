@@ -11,7 +11,7 @@ drop table if exists vetdb.animal;
 drop table if exists vetdb.proprietaire;
 drop table if exists vetdb.resultat;
 create domain vetdb.sextype as char
-	check(value in ('m','f'));
+	check(value in ('M','F'));
 create table if not exists vetdb.clinique(
 	numero varchar(10) not null,
 	rue varchar(20) not null,
@@ -30,7 +30,7 @@ create table if not exists vetdb.proprietaire(
 	adresse varchar(50) not null,
 	telephone varchar(15) not null,
 	primary key(numero, cliniquenumero),
-	foreign key(cliniquenumero) references vetdb.clinique(numero)
+	foreign key(cliniquenumero) references vetdb.clinique(numero) ON DELETE CASCADE
 );
 create table if not exists vetdb.employe(
 	numero varchar(10) not null,
@@ -69,7 +69,7 @@ create table if not exists vetdb.animal(
 	dateinscription date not null,
 	etatactuel varchar(15) not null,
 	primary key(numero, cliniquenumero),
-	foreign key(proprietairenumero, cliniquenumero) references vetdb.proprietaire(numero, cliniquenumero)
+	foreign key(proprietairenumero, cliniquenumero) references vetdb.proprietaire(numero, cliniquenumero) ON DELETE CASCADE
 );
 create table if not exists vetdb.examen(
 	numero varchar(10) not null,
@@ -79,8 +79,8 @@ create table if not exists vetdb.examen(
 	heure time not null,
 	description varchar(50) not null,
 	primary key(numero, numeroanimal),
-	foreign key(veterinairenumero) references vetdb.veterinaire(numeroemploye), 
-	foreign key(numeroanimal) references vetdb.animal(numero)
+	foreign key(veterinairenumero) references vetdb.veterinaire(numeroemploye) ON DELETE CASCADE,
+	foreign key(numeroanimal) references vetdb.animal(numero) ON DELETE CASCADE
 );
 create table if not exists vetdb.prescription(
 	numeroexamen varchar(10) not null,
@@ -90,7 +90,7 @@ create table if not exists vetdb.prescription(
 	datedebut date not null,
 	datefin date not null,
 	primary key(numeroexamen, numerotraitement),
-	foreign key(numeroexamen, numeroanimal) references vetdb.examen(numero, numeroanimal),
-	foreign key(numerotraitement) references vetdb.traitement(numero)
+	foreign key(numeroexamen, numeroanimal) references vetdb.examen(numero, numeroanimal) ON DELETE CASCADE,
+	foreign key(numerotraitement) references vetdb.traitement(numero) ON DELETE CASCADE
 );
 `;

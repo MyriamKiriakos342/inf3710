@@ -24,7 +24,8 @@ export class TraitementComponent implements OnInit {
                                                  this.name = animal.nom;
                                                  this.communicationService.getTraitementsByAnimals(animal).subscribe((prescriptions: Prescription[]) => {
       this.prescriptions = prescriptions;
-      console.log("prescriptions ", this.prescriptions); });
+      // console.log("prescriptions ", this.prescriptions); 
+    });
          });
      }
   }

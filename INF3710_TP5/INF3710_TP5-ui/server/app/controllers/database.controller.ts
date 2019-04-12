@@ -98,14 +98,14 @@ export class DatabaseController {
                    (req: Request, res: Response, next: NextFunction) => {
                 // Send the request to the service and send the response
                 this.databaseService.getCliniques().then((result: pg.QueryResult) => {
-                    const cliniques: Clinique[] = result.rows.map((clinique: Clinique) => (
+                    const cliniques: Clinique[] = result.rows.map((clinique: any) => (
                         {
                             numero: clinique.numero,
                             rue: clinique.rue,
                             ville: clinique.ville,
                             province: clinique.province,
-                            codePostal: clinique.codePostal,
-                            gestionnaireNo: clinique.gestionnaireNo,
+                            codePostal: clinique.codepostal,
+                            gestionnaireNo: clinique.gestionnaireno,
                             telecopieur: clinique.telecopieur,
                             telephone: clinique.telephone,
                         }));
@@ -115,23 +115,26 @@ export class DatabaseController {
                     console.error(e.stack);
                 });
             });
-        router.delete("/animal/delete/:animal",
+        router.delete("/animal/delete/:animalNo/:cliniqueNo",
                       (req: Request, res: Response, next: NextFunction) => {
-                console.log("Deletion en cours");
-                this.databaseService.deleteAnimal(req.params.animal).catch((e: Error) => {
+                          this.databaseService.deleteAnimal(req.params.animalNo, req.params.cliniqueNo).then((result: pg.QueryResult) => {
+                res.send();
+                }
+
+                ).catch((e: Error) => {
                     console.error(e.stack);
                 });
             });
         router.get("/traitement/:animalNo/:cliniqueNumero",
                    (req: Request, res: Response, next: NextFunction) => {
                 this.databaseService.getTraitementsByAnimals(req.params.animalNo, req.params.cliniqueNumero).then((result: pg.QueryResult) => {
-                    const prescriptions: Prescription[] = result.rows.map((prescription: Prescription) => (
+                    const prescriptions: Prescription[] = result.rows.map((prescription: any) => (
                         {
                             numero: prescription.numero,
                             description: prescription.description,
                             cout: prescription.cout,
-                            numeroExamen: prescription.numeroExamen,
-                            numeroAnimal: prescription.numeroAnimal,
+                            numeroExamen: prescription.numeroexamen,
+                            numeroAnimal: prescription.numeroanimal,
                             qteTraitement: prescription.qteTraitement,
                             dateDebut: prescription.dateDebut,
                             dateFin: prescription.dateFin,

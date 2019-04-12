@@ -13,8 +13,18 @@ export class AnimalModificationComponent {
   public constructor(
     private communicationService: CommunicationService,
     private dialogRef: MatDialogRef<AnimalModificationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Animal) {
-      this.animal = data;
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.animal = {cliniqueNumero: data.cliniqueNumero,
+                    dateInscription: data.dateInscription,
+                    dateNaissance: data.dateNaissance,
+                    description: data.description,
+                    etatActuel: data.etatActuel,
+                    nom: data.nom,
+                    numero: data.numero,
+                    proprietaireNumero: data.proprietaireNumero,
+                    type: data.type,
+      };
+
      }
 
   public fermer(): void {
@@ -23,6 +33,7 @@ export class AnimalModificationComponent {
 
   public modifierAnimal(animal: Animal): void {
     this.communicationService.modifyAnimal(animal).subscribe((animal: Animal) => {
+
       this.dialogRef.close();
     });
   }
