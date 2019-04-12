@@ -1,7 +1,6 @@
 import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
-import { Animal } from "../../../common/tables/Animal";
 
 @injectable()
 export class DatabaseService {
@@ -46,7 +45,11 @@ export class DatabaseService {
     }
 
     public async searchAnimal(name: string): Promise<pg.QueryResult> {
-        return this.pool.query(`SELECT * FROM vetdb.animal WHERE nom LIKE '%${name}%';`);
+        const values: string[] = [
+            name
+        ];
+
+        return this.pool.query(`SELECT * FROM vetdb.animal WHERE lower(nom) LIKE '%'||($1)||'%';`, values);
     }
     public async deleteAnimal(animalNo: string, cliniqueNo: string): Promise<pg.QueryResult> {
         const VALUES: string[] = [
@@ -65,10 +68,13 @@ export class DatabaseService {
         ;`);
 
     }
-    public async calculateBill(animal: Animal): Promise<pg.QueryResult> {
+    public async calculateBill(animalNo: string, cliniqueNumero: string): Promise<pg.QueryResult> {
+        const VALUES: string[] = [
+            animalNo,
+            cliniqueNumero,
+        ];
 
-        return this.pool.query(`SELECT SUM(cout) FROM vetdb.traitement WHERE numero IN
-        (SELECT numerotraitement IN vetdb.prescription WHERE numeroanimal='${animal.numero}') AS sum);`);
+        return this.pool.query(`SELECT SUM(cout) FROM vetdb.traitement WHERE numero IN (SELECT numerotraitement IN vetdb.prescription WHERE numeroanimal=($1)) AS sum);`, VALUES);
     }
 
     public async createAnimal({ animalNo, animalClinique, animalProprietaire, animalNom, animalType, animalDescription, animalEtatActuel, animalDateNaissance, animalDateInscription }: { animalNo: string; animalClinique: string; animalProprietaire: string; animalNom: string; animalType: string; animalDescription: string; animalEtatActuel: string; animalDateNaissance: string; animalDateInscription: string; }): Promise<pg.QueryResult> {

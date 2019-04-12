@@ -3,8 +3,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { Router } from "@angular/router";
 import { Animal } from "../../../../common/tables/Animal";
-import { CommunicationService } from "../communication.service";
 import { AnimalModificationComponent } from "../animal-modification/animal-modification.component";
+import { CommunicationService } from "../communication.service";
 @NgModule({
   imports: [FlexLayoutModule],
 })
@@ -90,8 +90,9 @@ export class AnimalComponent implements OnInit {
       }
 
   public search(): void {
+    console.dir(this.searchName);
     this.communicationService.searchAnimals(this.searchName).subscribe((animals: Animal[]) => {
-      // console.log("Updated value of animals[] ", animals);
+      console.log("Updated value of animals[] ", animals);
       this.animals = animals;
     });
   }

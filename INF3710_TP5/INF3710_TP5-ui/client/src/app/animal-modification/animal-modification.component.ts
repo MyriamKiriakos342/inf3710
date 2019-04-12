@@ -15,14 +15,14 @@ export class AnimalModificationComponent {
     private dialogRef: MatDialogRef<AnimalModificationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.animal = {cliniqueNumero: data.cliniqueNumero,
-                    dateInscription: data.dateInscription,
-                    dateNaissance: data.dateNaissance,
-                    description: data.description,
-                    etatActuel: data.etatActuel,
-                    nom: data.nom,
-                    numero: data.numero,
-                    proprietaireNumero: data.proprietaireNumero,
-                    type: data.type,
+                     dateInscription: data.dateInscription,
+                     dateNaissance: data.dateNaissance,
+                     description: data.description,
+                     etatActuel: data.etatActuel,
+                     nom: data.nom,
+                     numero: data.numero,
+                     proprietaireNumero: data.proprietaireNumero,
+                     type: data.type,
       };
 
      }

@@ -15,7 +15,7 @@ export class DatabaseController {
     public get router(): Router {
         const router: Router = Router();
 
-        router.get("/animal",
+        router.get("/animals",
                    (req: Request, res: Response, next: NextFunction) => {
                 // Send the request to the service and send the response
                 this.databaseService.getAnimals().then((result: pg.QueryResult) => {
@@ -33,9 +33,7 @@ export class DatabaseController {
                         }));
                     res.json(animals);
                     console.dir(res);
-                }).catch((e: Error) => {
-                    console.error(e.stack);
-                });
+                })
             });
         router.get("/animal/:animalNo/:cliniqueNo",
                    (req: Request, res: Response, next: NextFunction) => {
@@ -54,9 +52,7 @@ export class DatabaseController {
                             dateInscription: animal.dateinscription,
                         }));
                     res.json(animals[0]);
-                }).catch((e: Error) => {
-                    console.error(e.stack);
-                });
+                })
             });
         router.get("/proprietaire/init",
                    (req: Request, res: Response, next: NextFunction) => {
@@ -111,9 +107,7 @@ export class DatabaseController {
                         }));
                     console.dir(cliniques);
                     res.json(cliniques);
-                }).catch((e: Error) => {
-                    console.error(e.stack);
-                });
+                })
             });
         router.delete("/animal/delete/:animalNo/:cliniqueNo",
                       (req: Request, res: Response, next: NextFunction) => {
@@ -121,9 +115,7 @@ export class DatabaseController {
                 res.send();
                 }
 
-                ).catch((e: Error) => {
-                    console.error(e.stack);
-                });
+                )
             });
         router.get("/traitement/:animalNo/:cliniqueNumero",
                    (req: Request, res: Response, next: NextFunction) => {
@@ -141,9 +133,7 @@ export class DatabaseController {
 
                         }));
                     res.json(prescriptions);
-                }).catch((e: Error) => {
-                    console.error(e.stack);
-                });
+                })
             });
 
         // ? not sure???
@@ -155,10 +145,7 @@ export class DatabaseController {
                 const etatActuel: string = req.params.animalEtatActuel;
                 this.databaseService.modifyAnimal({ animalNo: numero, animalProprietaire: proprietaireNumero, animalDescription: description, animalEtatActuel: etatActuel }).then((result: pg.QueryResult) => {
                     res.json(req.params.animal);
-                }).catch((e: Error) => {
-                    console.error(e.stack);
-                    res.json(-1);
-                });
+                })
             });
 
         router.post("/animal/insert",
@@ -178,16 +165,14 @@ export class DatabaseController {
                 this.databaseService.createAnimal({ animalNo: numero, animalClinique: cliniqueNumero, animalProprietaire: proprietaireNumero, animalNom: nom, animalType: type, animalDescription: description, animalEtatActuel: etatActuel, animalDateNaissance: dateNaissance, animalDateInscription: dateInscription }).then((result: pg.QueryResult) => {
                     console.log("worked ", result.rowCount);
                     res.json(result.rowCount);
-                }).catch((e: Error) => {
-                    console.error(e.stack);
-                    res.json(-1);
-                });
+                })
             });
 
-        router.put("/animal/search/:name",
+        router.get("/animalSearch/:name",
                    (req: Request, res: Response, next: NextFunction) => {
-                console.log("DOESNT GET HERE SADLY");
                 this.databaseService.searchAnimal(req.params.name).then((result: pg.QueryResult) => {
+                    console.log(result.rows);
+                    console.dir("bouuuuuu");
                     const animals: Animal[] = result.rows.map((animal: any) => (
                         {
                             numero: animal.numero,
@@ -200,21 +185,15 @@ export class DatabaseController {
                             dateNaissance: animal.datenaissance,
                             dateInscription: animal.dateinscription,
                         }));
-                    res.json(animals);
-                }).catch((e: Error) => {
-                    console.error(e.stack);
-                });
+                    res.send(animals);
+                })
             });
 
-        router.post("/animal/calculateBill/:animal",
+        router.post("/animal/calculateBill/:animalNo/:cliniqueNo",
                     (req: Request, res: Response, next: NextFunction) => {
-
-                this.databaseService.calculateBill(req.params.animal).then((result: pg.QueryResult) => {
+                this.databaseService.calculateBill(req.params.animalNo, req.params.cliniqueNo).then((result: pg.QueryResult) => {
                     res.json(result.rows[0].sum);
-                }).catch((e: Error) => {
-                    console.error(e.stack);
-                    res.json(-1);
-                });
+                })
             });
 
         return router;
