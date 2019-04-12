@@ -42,7 +42,7 @@ export class CommunicationService {
 
     public getProprietaireByClinique(cliniqueNumero: string): Observable<Proprietaire[]> {
 
-        return this.http.get<Proprietaire[]>(this.BASE_URL + "/proprietaire/" + cliniqueNumero).pipe(
+        return this.http.get<Proprietaire[]>(this.BASE_URL + "/proprietaires/" + cliniqueNumero).pipe(
             catchError(this.handleError<Proprietaire[]>()),
         );
     }
@@ -59,6 +59,7 @@ export class CommunicationService {
             );
     }
     public insertAnimal(animal: Animal): Observable<number> {
+
         return this.http.post<number>(this.BASE_URL + "/animal/insert", animal).pipe(
             catchError(this.handleError<number>()));
     }

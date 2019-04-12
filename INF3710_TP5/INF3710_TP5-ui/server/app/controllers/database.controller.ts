@@ -33,7 +33,7 @@ export class DatabaseController {
                         }));
                     res.json(animals);
                     console.dir(res);
-                })
+                }).catch((erreur: unknown) => console.dir(erreur));
             });
         router.get("/animal/:animalNo/:cliniqueNo",
                    (req: Request, res: Response, next: NextFunction) => {
@@ -71,8 +71,7 @@ export class DatabaseController {
                     console.error(e.stack);
                 });
             });
-        /*
-                router.get("/proprietaire/:cliniqueNumero",
+                router.get("/proprietaires/:cliniqueNumero",
                            (req: Request, res: Response, next: NextFunction) => {
                             console.dir("moi aussi");
                             this.databaseService.getProprietairesByClinique(req.params.cliniqueNumero).then((result: pg.QueryResult) => {
@@ -89,7 +88,7 @@ export class DatabaseController {
         }).catch((e: Error) => {
         console.error(e.stack);
         });
-        });*/
+        });
         router.get("/clinique",
                    (req: Request, res: Response, next: NextFunction) => {
                 // Send the request to the service and send the response
@@ -105,7 +104,6 @@ export class DatabaseController {
                             telecopieur: clinique.telecopieur,
                             telephone: clinique.telephone,
                         }));
-                    console.dir(cliniques);
                     res.json(cliniques);
                 })
             });
@@ -137,42 +135,28 @@ export class DatabaseController {
             });
 
         // ? not sure???
-        router.put("/animal/modify/:animal",
+        router.put("/animal/modify/",
                    (req: Request, res: Response, next: NextFunction) => {
-                const numero: string = req.params.numero;
-                const proprietaireNumero: string = req.params.animalProprietaire;
-                const description: string = req.params.animalDescription;
-                const etatActuel: string = req.params.animalEtatActuel;
-                this.databaseService.modifyAnimal({ animalNo: numero, animalProprietaire: proprietaireNumero, animalDescription: description, animalEtatActuel: etatActuel }).then((result: pg.QueryResult) => {
+
+                this.databaseService.modifyAnimal(req.body).then((result: pg.QueryResult) => {
                     res.json(req.params.animal);
                 })
             });
 
         router.post("/animal/insert",
                     (req: Request, res: Response, next: NextFunction) => {
-
-                const numero: string = req.params.animal.animalNo;
-                const cliniqueNumero: string = req.params.animalClinique;
-                const proprietaireNumero: string = req.params.animalProprietaire;
-                const nom: string = req.params.animalNom;
-                const type: string = req.params.animalType;
-                const description: string = req.params.animalDescription;
-                const etatActuel: string = req.params.animalEtatActuel;
-                const dateNaissance: string = req.params.animalDateNaissance;
-                const dateInscription: string = req.params.animalDateInscription;
-
-                // tslint:disable-next-line:max-line-length
-                this.databaseService.createAnimal({ animalNo: numero, animalClinique: cliniqueNumero, animalProprietaire: proprietaireNumero, animalNom: nom, animalType: type, animalDescription: description, animalEtatActuel: etatActuel, animalDateNaissance: dateNaissance, animalDateInscription: dateInscription }).then((result: pg.QueryResult) => {
+                console.dir(req.body);
+                this.databaseService.createAnimal(req.body as Animal).then((result: pg.QueryResult) => {
                     console.log("worked ", result.rowCount);
                     res.json(result.rowCount);
-                })
+                }).catch((e: Error) => {
+                    console.error(e.stack);
+                    });
             });
 
         router.get("/animalSearch/:name",
                    (req: Request, res: Response, next: NextFunction) => {
                 this.databaseService.searchAnimal(req.params.name).then((result: pg.QueryResult) => {
-                    console.log(result.rows);
-                    console.dir("bouuuuuu");
                     const animals: Animal[] = result.rows.map((animal: any) => (
                         {
                             numero: animal.numero,

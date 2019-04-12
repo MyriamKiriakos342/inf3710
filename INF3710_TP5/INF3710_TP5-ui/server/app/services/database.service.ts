@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
+import { Animal } from "../../../common/tables/Animal";
 
 @injectable()
 export class DatabaseService {
@@ -30,10 +31,10 @@ export class DatabaseService {
 
         return this.pool.query(`SELECT * FROM vetdb.proprietaire;`);
     }
-    /*public async getProprietairesByClinique(cliniqueNumero: string): Promise<pg.QueryResult> {
+    public async getProprietairesByClinique(cliniqueNumero: string): Promise<pg.QueryResult> {
 
-        return this.pool.query(`SELECT * FROM vetdb.Proprietaire WHERE ${cliniqueNumero} = cliniqueNumero;`);
-    }*/
+        return this.pool.query(`SELECT * FROM vetdb.Proprietaire WHERE '${cliniqueNumero}' = cliniqueNumero;`);
+    }
     public async getCliniques(): Promise<pg.QueryResult> {
 
         return this.pool.query(`SELECT * FROM vetdb.clinique;`);
@@ -77,32 +78,34 @@ export class DatabaseService {
         return this.pool.query(`SELECT SUM(cout) FROM vetdb.traitement WHERE numero IN (SELECT numerotraitement IN vetdb.prescription WHERE numeroanimal=($1)) AS sum);`, VALUES);
     }
 
-    public async createAnimal({ animalNo, animalClinique, animalProprietaire, animalNom, animalType, animalDescription, animalEtatActuel, animalDateNaissance, animalDateInscription }: { animalNo: string; animalClinique: string; animalProprietaire: string; animalNom: string; animalType: string; animalDescription: string; animalEtatActuel: string; animalDateNaissance: string; animalDateInscription: string; }): Promise<pg.QueryResult> {
+    public async createAnimal(animal: Animal): Promise<pg.QueryResult> {
         const values: string[] = [
-            animalNo,
-            animalClinique,
-            animalProprietaire,
-            animalNom,
-            animalType,
-            animalDescription,
-            animalEtatActuel,
-            animalDateNaissance,
-            animalDateInscription
+            animal.numero,
+            animal.proprietaireNumero,
+            animal.cliniqueNumero,
+            animal.nom,
+            animal.type,
+            animal.description,
+            animal.dateNaissance.toString(),
+            animal.dateInscription.toString(),
+            animal.etatActuel,
+
         ];
         const queryText: string = `INSERT INTO vetdb.animal VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
 
         return this.pool.query(queryText, values);
     }
 
-    public async modifyAnimal({ animalNo, animalProprietaire, animalDescription, animalEtatActuel, }: { animalNo: string; animalProprietaire: string; animalDescription: string; animalEtatActuel: string; }): Promise<pg.QueryResult> {
+    public async modifyAnimal(animal: Animal): Promise<pg.QueryResult> {
         const values: string[] = [
-            animalNo,
-            animalProprietaire,
-            animalDescription,
-            animalEtatActuel,
+            animal.numero,
+            animal.proprietaireNumero,
+            animal.cliniqueNumero,
+            animal.etatActuel,
+            animal.description,
         ];
-        const queryText: string = `UPDATE vetdb.animal SET description=${animalDescription}, etatactuel=${animalEtatActuel}
-        WHERE numero=${animalNo} AND proprietairenumero=${animalProprietaire};`;
+        const queryText: string = `UPDATE vetdb.animal SET description=($5), etatactuel=($4)
+        WHERE numero=($1) AND proprietairenumero=($2);`;
 
         return this.pool.query(queryText, values);
     }

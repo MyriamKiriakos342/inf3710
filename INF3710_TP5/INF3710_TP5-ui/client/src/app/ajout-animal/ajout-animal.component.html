@@ -1,28 +1,40 @@
 <div id="animal">
   <h1> Formulaire d'ajout d'animal </h1>
-
   <form>
     <label for="numero">Entrez le numero de l'animal : </label>
-    <input type="number" name="numero" id="numero" (change)="onChange()" [(ngModel)]="this.animal.numero">
+    <input type="number" name="numero" id="numero" [(ngModel)]="this.animal.numero" maxlength="10">
     <br>
     <label for="cliniqueNumero">Entrez le numero de la clinique : </label>
-    <select name="cliniqueNumero" id="cliniqueNumero" [(ngModel)]="animal.cliniqueNumero">
+      <select name="cliniqueNumero" id="cliniqueNumero" [(ngModel)]="animal.cliniqueNumero" (change)="getProprietaireByClinique()">
         <option *ngFor="let clinique of cliniques" value={{clinique.numero}}>{{clinique.numero}}</option>
     </select>
     <br>
     <label for="proprietaireNumero">Entrez le numero du proprietaire : </label>
-    <select name="proprietaireNumero" id="proprietaireNumero" [(ngModel)]="animal.proprietaireNumero">
+    <select name="proprietaireNumero" id="proprietaireNumero" [(ngModel)]="animal.proprietaireNumero"  (change)="consoleProprio()">
       <option *ngFor="let proprietaire of proprietaires" value={{proprietaire.numero}}>{{proprietaire.numero}}</option>
     </select>
     <br>
     <label for="nom">Entrez le nom de l'animal : </label>
-    <input type="text" name="nom" id="nom"[(ngModel)]="animal.nom">
+    <input type="text" name="nom" id="nom"[(ngModel)]="animal.nom" maxlength="10">
     <br>
     <label for="type">Entrez le type d'animal : </label>
-    <input type="text" name="type" id="type"[(ngModel)]="animal.type">
+    <select name="type" id="type"[(ngModel)]="animal.type">
+      <option  value="Chien">Chien</option>
+      <option value="Chat">Chat</option>
+      <option value="Serpent">Serpent</option>
+      <option value="Oiseau">Oiseau</option>
+      <option value="Lezard">Lezard</option>
+      <option value="Poisson">Poisson</option>
+      <option value="Hamster">Hamster</option>
+      <option value="Lapin">Lapin</option>
+      <option value="Souris">Souris</option>
+      <option value="Rat">Rat</option>
+      <option value="Papillon">Papillon</option>
+      <option value="Gerboise">Gerboise</option>
+    </select>
     <br>
     <label for="description">Entrez une description de l'animal : </label>
-    <textarea name="description" id="description" cols="70" rows="5" [(ngModel)]="animal.description"></textarea>
+    <textarea name="description" id="description" cols="70" rows="5" [(ngModel)]="animal.description" maxlength="50"></textarea>
     <br>
     <label>Entrez l'etat de l'animal : </label>
     <input type="radio" name="vivant" value="Vivant" name="etat" [(ngModel)]="animal.etat"> Vivant
@@ -34,7 +46,7 @@
     <label for="dateInscription">Entrez la date d'inscription de l'animal</label>
     <input type="date" name="dateInscription" id="dateInscription" [(ngModel)]="animal.dateInscription">
     <br>
-    <button type="submit" (click)="onChange()">Ajouter l'animal</button>
+    <button type="submit" (click)="addAnimal()">Ajouter l'animal</button>
   </form>
 
 </div>

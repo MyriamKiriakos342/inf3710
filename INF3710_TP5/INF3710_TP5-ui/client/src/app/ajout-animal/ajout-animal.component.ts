@@ -9,10 +9,12 @@ import { CommunicationService } from "../communication.service";
   templateUrl: "./ajout-animal.component.html",
   styleUrls: ["./ajout-animal.component.css"]
 })
+
 export class AjoutAnimalComponent implements OnInit {
   public cliniques: Clinique[];
   public proprietaires: Proprietaire[];
   public animal: Animal;
+  public type: string;
 
   public constructor(private communicationService: CommunicationService) {
     this.cliniques = [];
@@ -31,11 +33,23 @@ export class AjoutAnimalComponent implements OnInit {
     this.communicationService.getProprietaires().subscribe((proprietaires: Proprietaire[]) =>
     this.proprietaires = proprietaires);
   }
+
+  public getProprietaireByClinique(): void {
+    this.communicationService.getProprietaireByClinique(this.animal.cliniqueNumero).subscribe((proprio: Proprietaire[]) => {
+      this.proprietaires = proprio;
+      this.animal.proprietaireNumero = proprio[0].numero;
+    });
+  }
+
   public ngOnInit(): void {
     this.getClinique();
     this.getProprietaire();
   }
-  public onChange(): void {
+
+  public consoleProprio(): void {
+    console.dir(this.animal.proprietaireNumero);
+  }
+  public addAnimal(): void {
     const animal: Animal = {
       cliniqueNumero: this.animal.cliniqueNumero,
       nom: this.animal.nom,
@@ -47,8 +61,14 @@ export class AjoutAnimalComponent implements OnInit {
       proprietaireNumero: this.animal.proprietaireNumero,
       numero: "A" + this.animal.numero,
     };
-    console.log("animal to insert ", animal);
-    this.communicationService.insertAnimal(animal);
+
+    console.dir(animal);
+    this.communicationService.insertAnimal(animal).subscribe(() => {
+      alert("animal ajoute!");
+      this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
+        console.dir(animals);
+      });
+    });
   }
 
 }
