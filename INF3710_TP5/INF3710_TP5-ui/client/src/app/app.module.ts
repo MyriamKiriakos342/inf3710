@@ -6,12 +6,12 @@ import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule
 import { BrowserModule } from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AjoutAnimalComponent } from "./ajout-animal/ajout-animal.component";
+import { AnimalModificationComponent } from './animal-modification/animal-modification.component';
 import { AnimalComponent } from "./animal/animal.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CommunicationService } from "./communication.service";
 import { TraitementComponent } from "./traitement/traitement.component";
-import { ModificationAnimalComponent } from './modification-animal/modification-animal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { ModificationAnimalComponent } from './modification-animal/modification-
     AnimalComponent,
     TraitementComponent,
     AjoutAnimalComponent,
-    ModificationAnimalComponent,
+    AnimalModificationComponent,
   ],
   imports: [
     CommonModule,

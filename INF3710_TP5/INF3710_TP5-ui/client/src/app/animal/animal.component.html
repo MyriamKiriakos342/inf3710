@@ -23,7 +23,7 @@
           <td> {{animal.etatActuel}}</td>
           <td> {{animal.dateNaissance}}</td>
           <td> {{animal.dateInscription}}</td>
-          <button class="{{animal.numero}}" type="button" mat-raised-button (click)="modifyAnimal($event)">Modifier</button>
-          <button class="{{animal.numero}}" type="button" mat-raised-button (click)="removeAnimal($event)">Supprimer</button>
+          <button class="{{animal.numero}}" type="button" mat-raised-button (click)="modifyAnimal(animal)">Modifier</button>
+          <button class="{{animal.numero}}" type="button" mat-raised-button (click)="removeAnimal(animal)">Supprimer</button>
       </tbody>
   </table>
