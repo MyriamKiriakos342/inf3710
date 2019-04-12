@@ -117,6 +117,7 @@ export class DatabaseController {
             });
         router.delete("/animal/delete/:animal",
                       (req: Request, res: Response, next: NextFunction) => {
+                console.log("Deletion en cours");
                 this.databaseService.deleteAnimal(req.params.animal).catch((e: Error) => {
                     console.error(e.stack);
                 });
@@ -180,7 +181,7 @@ export class DatabaseController {
                 });
             });
 
-        router.get("/animal/search/:name",
+        router.put("/animal/search/:name",
                    (req: Request, res: Response, next: NextFunction) => {
                 console.log("DOESNT GET HERE SADLY");
                 this.databaseService.searchAnimal(req.params.name).then((result: pg.QueryResult) => {

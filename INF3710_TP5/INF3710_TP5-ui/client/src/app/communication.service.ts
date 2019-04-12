@@ -70,7 +70,7 @@ export class CommunicationService {
     }
 
     public searchAnimals(name: string): Observable<Animal[]> {
-        return this.http.get<Animal[]>(this.BASE_URL + "/animal/search/" + name).pipe(
+        return this.http.put<Animal[]>(this.BASE_URL + "/animal/search/", name).pipe(
             catchError(this.handleError<Animal[]>()),
         );
     }

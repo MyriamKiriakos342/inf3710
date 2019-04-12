@@ -2,6 +2,7 @@
 
   <table id ="ht" align="center" border="1" width="1100">
       <thead>
+        <tr>
         <td id="numero">Numero</td>
         <td id="proprio">Proprietaire</td>
         <td id="clinique">Clinique</td>
@@ -12,18 +13,21 @@
         <td id="dateNaissance" >Date de naissance</td>
         <td id="dateInscription" >Date d'inscription</td>
         <td id="option">Options</td>
+      </tr>
       </thead>
-      <tbody *ngFor = "let animal of animals" (click)=reacheminementTraitement(animal)>
-          <td> {{animal.numero}}</td>
-          <td> {{animal.proprietaireNumero}}</td>
-          <td> {{animal.cliniqueNumero}}</td>
-          <td> {{animal.nom}}</td>
-          <td> {{animal.type}}</td>
-          <td> {{animal.description}}</td>
-          <td> {{animal.etatActuel}}</td>
-          <td> {{animal.dateNaissance}}</td>
-          <td> {{animal.dateInscription}}</td>
-          <button class="{{animal.numero}}" type="button" mat-raised-button (click)="modifyAnimal(animal)">Modifier</button>
-          <button class="{{animal.numero}}" type="button" mat-raised-button (click)="removeAnimal(animal)">Supprimer</button>
+      <tbody >
+        <tr *ngFor = "let animal of animals">
+            <td (click)=reacheminementTraitement(animal)> {{animal.numero}}</td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.proprietaireNumero}}</td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.cliniqueNumero}}</td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.nom}}</td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.type}}</td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.description}}</td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.etatActuel}}</td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.dateNaissance}}</td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.dateInscription}}</td>
+            <button class="{{animal.numero}}" type="button" mat-raised-button (click)="modifyAnimal($event)">Modifier</button>
+            <button class="{{animal.numero}}" type="button" mat-raised-button (click)="removeAnimal($event)">Supprimer</button>
+        </tr>
       </tbody>
   </table>

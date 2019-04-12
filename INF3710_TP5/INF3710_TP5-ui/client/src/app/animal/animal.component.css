@@ -4,9 +4,6 @@
     flex-wrap: wrap;
     justify-content: flex-start;
   }
-  .cardList > * {
-    box-sizing: border-box;
-  }
   .cardList > *:not(:last-child) {
     margin-right: 32px;
   }
@@ -54,9 +51,19 @@ button:hover {
 th {
   width: 110px;
   text-align: center;
+  border: none;
 }
 
 thead {
   font-weight: 800;
   font-size: 20px;
+  border: none;
 }
+
+td {
+  border: none;
+}
+
+tr {
+  border-bottom: 1px solid #ccc;
+  }
