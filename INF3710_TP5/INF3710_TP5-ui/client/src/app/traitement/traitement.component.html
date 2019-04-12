@@ -7,13 +7,21 @@
      <div style="align-items: center" #infoTraitements>
         <table id ="ht" align="center" border="1" width="350">
             <thead>
+                <tr>
+                    <td>Numero d'examen</td>
+                    <td>Numero du traitement</td>
+                    <td>Quantite du traitement</td>
+                    <td>Type du traitement</td>
+                    <td>Description du traitement</td>
+                    <td>Date de debut du traitement</td>
+                    <td>Date de debut du traitement</td>
+                    <td>Cout du traitement</td>
+                  </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let prescription of prescriptions">
-                <td> Numero Animal{{prescription.numeroAnimal}}</td>
-                <td> Numero Examen: {{prescription.numeroExamen}}</td>
-               
-                <td> Numero Traitement: {{prescription.numero}}</td>
+            <tbody *ngFor="let prescription of prescriptions">
+              <tr>
+                <td> {{prescription.numeroExamen}}</td>
+                <td> {{prescription.numero}}</td>
                 <td> {{prescription.qteTraitement}}</td>
                 <td> {{prescription.type}}</td>
                 <td> {{prescription.description}}</td>

@@ -20,6 +20,7 @@ export class AnimalComponent implements OnInit {
   public longueurMax: number = 15;
   public duplicateError: boolean = false;
   public animals: Animal[];
+  public searchName: string = "";
 
   public insertAnimal(animalNo: string,
                       animalClinique: string,
@@ -51,7 +52,6 @@ export class AnimalComponent implements OnInit {
 
     this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
       this.animals = animals;
-      console.dir(animals);
     });
 }
 
@@ -60,7 +60,7 @@ export class AnimalComponent implements OnInit {
   }
   public reacheminementTraitement(animal: Animal): void {
     this.route.navigateByUrl("/traitement/" + animal.numero + "/" + animal.cliniqueNumero).catch((erreur: unknown) => {
-        return console.dir(erreur);
+        return console.dir("reacheminementTraitement ", erreur);
       });
   }
   public modifyAnimal(e: MouseEvent): void {
@@ -89,13 +89,16 @@ export class AnimalComponent implements OnInit {
           return animalIndiv.numero === numero;
         });
         this.communicationService.deleteAnimal((animal as Animal));
-        this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
-          this.animals = animals;
-          console.log(animals);
-        });
         alert("Pour voir le tableau mis a jour, vous devez rafraichir votre page");
       }
-
     }
   }
+
+  public search(): void {
+    this.communicationService.searchAnimals(this.searchName).subscribe((animals: Animal[]) => {
+      console.log("Updated value of animals[] ",animals);
+      this.animals = animals;
+    });
+  }
+
 }

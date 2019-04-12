@@ -18,14 +18,13 @@ export class TraitementComponent implements OnInit {
                      private route: ActivatedRoute) { }
 
   public ngOnInit(): void {
-      console.dir(this.route.snapshot.paramMap);
+      //console.dir(this.route.snapshot.paramMap);
       this.communicationService.getAnimalByKey(this.route.snapshot.paramMap.get("animalId")!,
                                                this.route.snapshot.paramMap.get("cliniqueId")!).subscribe((animal: Animal) => {
-                                                 console.dir(animal);
                                                  this.name = animal.nom;
                                                  this.communicationService.getTraitementsByAnimals(animal).subscribe((prescriptions: Prescription[]) => {
-      console.dir(prescriptions);
-      this.prescriptions = prescriptions; });
+      this.prescriptions = prescriptions;
+      console.log("prescriptions ", this.prescriptions); });
          });
      }
   }

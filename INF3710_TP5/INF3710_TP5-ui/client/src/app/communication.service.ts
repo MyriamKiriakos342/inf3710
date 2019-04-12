@@ -5,7 +5,7 @@ import {Clinique} from "../../../common/tables/Clinique";
 import {Proprietaire} from "../../../common/tables/Proprietaire";
 import {Prescription} from "../../../common/tables/Prescription";
 // tslint:disable-next-line:ordered-imports
-import { of, Observable, concat, Subject } from "rxjs";
+import { of, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 @Injectable()
@@ -70,8 +70,7 @@ export class CommunicationService {
     }
 
     public searchAnimals(name: string): Observable<Animal[]> {
-
-        return this.http.post<Animal[]>(this.BASE_URL + "/animal/search/", name).pipe(
+        return this.http.get<Animal[]>(this.BASE_URL + "/animal/search/" + name).pipe(
             catchError(this.handleError<Animal[]>()),
         );
     }
