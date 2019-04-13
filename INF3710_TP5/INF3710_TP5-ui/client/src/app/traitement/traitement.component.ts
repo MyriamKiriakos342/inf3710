@@ -21,7 +21,8 @@ export class TraitementComponent implements OnInit {
   public ngOnInit(): void {
       this.communicationService.getAnimalByKey(this.route.snapshot.paramMap.get("animalId")!,
                                                this.route.snapshot.paramMap.get("cliniqueId")!).subscribe((animal: Animal) => {
-                                                 this.name = animal.nom;
+// tslint:disable-next-line: no-non-null-assertion
+                                                 this.name = animal.nom!;
                                                  this.communicationService.getTraitementsByAnimals(animal).subscribe((prescriptions: Prescription[]) => {
       this.prescriptions = prescriptions;
     });

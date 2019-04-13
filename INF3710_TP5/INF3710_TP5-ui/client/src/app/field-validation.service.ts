@@ -14,7 +14,7 @@ export class FieldValidationService {
   }
 
   public validateInput(value: string): boolean {
-    return value.length < 10;
+    return value.length < 10 && value.length > 0;
   }
 
   public validateDescription(value: string): boolean {
@@ -25,17 +25,18 @@ export class FieldValidationService {
     let alreadyChosenValues: boolean = false;
     this.communication.getAnimals().subscribe((animals: Animal[]) => {
       animals.forEach((animal: Animal) => {
+
         if (animal.numero === numero && animal.cliniqueNumero === cliniqueNo) {
           alreadyChosenValues = true;
         }
       });
     });
 
-    return alreadyChosenValues;
+    return !alreadyChosenValues;
   }
 
-  public validateDate(date: Date): boolean {
-    return !date;
+  public validateDate(date: Date | null): boolean {
+    return !(date === null);
   }
 
   public validateInscripAfterBirth(inscription: Date, birth: Date): boolean {

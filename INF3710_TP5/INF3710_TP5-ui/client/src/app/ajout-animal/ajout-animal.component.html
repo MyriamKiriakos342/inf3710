@@ -1,21 +1,37 @@
+<ng-template #vide></ng-template> <!-- template vide pour les messages d'erreur -->
 <div id="animal">
   <h1> Formulaire d'ajout d'animal </h1>
   <form>
     <label for="numero">Entrez le numero de l'animal : </label>
-    <input type="number" name="numero" id="numero" [(ngModel)]="this.animal.numero" maxlength="10">
+    <input type="number" name="numero" id="numero" [(ngModel)]="this.animal.numero" maxlength="9">
+    <div class="message-erreur" *ngIf="erreur.numero; else vide">
+        Il faut choisir un numero.  
+      </div>
     <br>
     <label for="cliniqueNumero">Entrez le numero de la clinique : </label>
       <select name="cliniqueNumero" id="cliniqueNumero" [(ngModel)]="animal.cliniqueNumero" (change)="getProprietaireByClinique()">
         <option *ngFor="let clinique of cliniques" value={{clinique.numero}}>{{clinique.numero}}</option>
     </select>
+    <div class="message-erreur" *ngIf="erreur.numeroReplique; else vide">
+        Ce numero d'animal a cette clinique est deja pris. Veuillez en choisir un autre. 
+      </div>
+      <div class="message-erreur" *ngIf="erreur.clinique; else vide">
+          Il faut choisir une clinique 
+        </div>
     <br>
     <label for="proprietaireNumero">Entrez le numero du proprietaire : </label>
-    <select name="proprietaireNumero" id="proprietaireNumero" [(ngModel)]="animal.proprietaireNumero"  (change)="consoleProprio()">
+    <select name="proprietaireNumero" id="proprietaireNumero" [(ngModel)]="animal.proprietaireNumero"  (change)="sendAnimal()">
       <option *ngFor="let proprietaire of proprietaires" value={{proprietaire.numero}}>{{proprietaire.numero}}</option>
     </select>
+    <div class="message-erreur" *ngIf="erreur.proprio; else vide">
+        Il faut selectionner une option.
+      </div>
     <br>
     <label for="nom">Entrez le nom de l'animal : </label>
-    <input type="text" name="nom" id="nom"[(ngModel)]="animal.nom" maxlength="10">
+    <input type="text" name="nom" id="nom"[(ngModel)]="animal.nom" maxlength="9">
+    <div class="message-erreur" *ngIf="erreur.nom; else vide">
+        Il faut ecrire un nom 
+      </div>
     <br>
     <label for="type">Entrez le type d'animal : </label>
     <select name="type" id="type"[(ngModel)]="animal.type">
@@ -32,9 +48,15 @@
       <option value="Papillon">Papillon</option>
       <option value="Gerboise">Gerboise</option>
     </select>
+    <div class="message-erreur" *ngIf="erreur.type; else vide">
+        Il faut selectionner une option.
+      </div>
     <br>
     <label for="description">Entrez une description de l'animal : </label>
     <textarea name="description" id="description" cols="70" rows="5" [(ngModel)]="animal.description" maxlength="50"></textarea>
+    <div class="message-erreur" *ngIf="erreur.description; else vide">
+        Entre 1 et 50 characteres
+      </div>
     <br>
     <label>Entrez l'etat de l'animal : </label>
     <input type="radio" name="vivant" value="Vivant" name="etat" [(ngModel)]="animal.etat"> Vivant
@@ -42,11 +64,20 @@
     <br>
     <label for="dateNaissance">Entrez la date de naissance de l'animal : </label>
     <input type="date" name="dateNaissance" id="dateNaissance" [(ngModel)]="animal.dateNaissance">
+    <div class="message-erreur" *ngIf="erreur.dateNaissance; else vide">
+        Il faut selectionner une date.
+      </div>
     <br>
     <label for="dateInscription">Entrez la date d'inscription de l'animal</label>
     <input type="date" name="dateInscription" id="dateInscription" [(ngModel)]="animal.dateInscription">
+    <div class="message-erreur" *ngIf="erreur.dateInscription; else vide">
+        Il faut selectionner une date.
+      </div>
+      <div class="message-erreur" *ngIf="erreur.naissanceApresInscription; else vide">
+          La date d'inscription doit etre apres la date de naissance.
+        </div>
     <br>
-    <button type="submit" (click)="addAnimal()">Ajouter l'animal</button>
+    <button type="submit" (click)="sendAnimal()">Ajouter l'animal</button>
   </form>
 
 </div>
