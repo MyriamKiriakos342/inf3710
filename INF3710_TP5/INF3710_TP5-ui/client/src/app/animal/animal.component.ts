@@ -21,6 +21,7 @@ export class AnimalComponent implements OnInit {
   public duplicateError: boolean = false;
   public animals: Animal[];
   public searchName: string = "";
+  public deleteAnimal: Animal;
 
   public insertAnimal(animalNo: string,
                       animalClinique: string,
@@ -68,17 +69,33 @@ export class AnimalComponent implements OnInit {
   }
 
   public removeAnimal(animal: Animal): void {
-    console.dir(animal);
-    this.communicationService.deleteAnimal(animal.numero, animal.cliniqueNumero).subscribe(() => {
+    this.deleteAnimal = animal;
+    const dialog: HTMLElement | null = document.getElementById("success");
+    if (dialog !== null) {
+      dialog.style.display = "block";
+    }
+
+  }
+
+  public yes(): void {
+    this.communicationService.deleteAnimal(this.deleteAnimal.numero, this.deleteAnimal.cliniqueNumero).subscribe(() => {
           this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
             this.animals = animals;
-            console.dir(animals);
           });
         }
+    );
+    const dialog: HTMLElement | null = document.getElementById("success");
+    if (dialog !== null) {
+      dialog.style.display = "none";
+    }
+  }
 
-        );
-
-      }
+  public no(): void {
+    const dialog: HTMLElement | null = document.getElementById("success");
+    if (dialog !== null) {
+      dialog.style.display = "none";
+    }
+  }
 
   public search(): void {
     console.dir(this.searchName);

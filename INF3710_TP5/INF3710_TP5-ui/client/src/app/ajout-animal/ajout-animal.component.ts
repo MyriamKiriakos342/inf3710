@@ -69,12 +69,17 @@ export class AjoutAnimalComponent implements OnInit {
     if (this.canInsert()) {
 this.communicationService.insertAnimal(animal).subscribe(() => {
       alert("animal ajoute!");
-      this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
-        console.dir(animals);
-      });
-    });
-    }
 
+      const success: HTMLElement | null = document.getElementById("success");
+      if (success !== null) {
+        success.style.display = "block";
+        setTimeout(() => {
+          success.style.display = "none";
+        },         3000);
+      }
+
+    });
+}
   }
   public validerType(): void {
     this.erreur.type = !this.validate.validateSelect(this.animal.type!);

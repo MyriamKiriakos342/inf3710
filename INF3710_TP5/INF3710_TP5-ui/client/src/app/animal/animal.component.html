@@ -1,6 +1,15 @@
+<div id="animal">
 <input [(ngModel)]="searchName" type="text" id="input" (change)="search()"><button mat-raised-button >Rechercher</button><br>
 
-  <table id ="ht" align="center" border="1" width="1100">
+
+<div id="success">
+    <p>Etes-vous certain de vouloir supprimer cet animal?</p>
+    <p>Cette operation ne peut etre defaite</p> 
+    <button class="choice" (click)="no()">Non, je souhaite garder cet animal</button>
+    <button class="choice" (click)="yes()">Oui, je souhaite supprimer definivement cet animal</button>
+</div>
+
+  <table id ="ht" width="900">
       <thead>
         <tr>
         <td id="numero">Numero</td>
@@ -26,8 +35,9 @@
             <td (click)=reacheminementTraitement(animal)> {{animal.etatActuel}}</td>
             <td (click)=reacheminementTraitement(animal)> {{animal.dateNaissance}}</td>
             <td (click)=reacheminementTraitement(animal)> {{animal.dateInscription}}</td>
-            <button class="{{animal.numero}}" type="button" mat-raised-button (click)="modifyAnimal(animal)">Modifier</button>
-            <button class="{{animal.numero}}" type="button" mat-raised-button (click)="removeAnimal(animal)">Supprimer</button>
+            <button class="{{animal.numero}}" (click)="modifyAnimal(animal)">Modifier</button>
+            <button class="{{animal.numero}}" (click)="removeAnimal(animal)">Supprimer</button>
         </tr>
       </tbody>
   </table>
+</div>

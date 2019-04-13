@@ -1,14 +1,11 @@
-<div id="traitements" style="text-align: left">
+<div id="traitements">
     <h1> Traitements</h1>
-    <div id="error" class="alert alert-danger" role="alert" *ngIf="duplicateError">
-      Erreur!
-    </div>
       <h2>Liste de traitements de {{name}}
         <br>
         Cout total: {{cout}} $
       </h2>
-     <div style="align-items: center" #infoTraitements>
-        <table id ="ht" align="center" border="1" width="350">
+     <div #infoTraitements>
+        <table width="700">
             <thead>
                 <tr>
                     <td>Numero d'examen</td>
