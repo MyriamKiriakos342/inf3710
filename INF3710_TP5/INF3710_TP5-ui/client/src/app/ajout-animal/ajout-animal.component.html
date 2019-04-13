@@ -10,7 +10,7 @@
     <label for="numero">Entrez le numero de l'animal : </label>
     <input type="number" name="numero" id="numero" [(ngModel)]="this.animal.numero" maxlength="9">
     <div class="message-erreur" *ngIf="erreur.numero; else vide">
-        Il faut choisir un numero.  
+        Il faut choisir un numero entre 1 et 9 characteres.  
       </div>
     <br>
     <label for="cliniqueNumero">Entrez le numero de la clinique : </label>
@@ -64,8 +64,11 @@
       </div>
     <br>
     <label>Entrez l'etat de l'animal : </label>
-    <input type="radio" name="vivant" value="Vivant" name="etat" [(ngModel)]="animal.etat"> Vivant
-    <input type="radio" name="decede" value="Decede" name="etat"> Decede <br>
+    <input type="radio" name="vivant" value="Vivant" name="etat" [(ngModel)]="animal.etatActuel"> Vivant
+    <input type="radio" name="decede" value="Decede" name="etat" [(ngModel)]="animal.etatActuel"> Decede <br>
+    <div class="message-erreur" *ngIf="erreur.etat; else vide">
+        Il faut selectionner une option.
+      </div>
     <br>
     <label for="dateNaissance">Entrez la date de naissance de l'animal : </label>
     <input type="date" name="dateNaissance" id="dateNaissance" [(ngModel)]="animal.dateNaissance">

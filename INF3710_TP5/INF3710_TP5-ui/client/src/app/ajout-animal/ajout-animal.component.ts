@@ -24,8 +24,8 @@ export class AjoutAnimalComponent implements OnInit {
                      private validate: FieldValidationService) {
     this.cliniques = [];
     this.proprietaires = [];
-    this.animal = {cliniqueNumero: "", nom: "", numero: "", dateInscription: new Date(),
-                   dateNaissance: new Date(), etatActuel: "", type: "", description: "",
+    this.animal = {cliniqueNumero: "", nom: "", numero: "", dateInscription: null,
+                   dateNaissance: null, etatActuel: "", type: "", description: "",
                    proprietaireNumero: ""};
     this.erreur = {numero: false, naissanceApresInscription: false, numeroReplique: false, dateInscription: false, etat: false,
                    description: false, nom: false, dateNaissance: false, type: false, proprio: false, clinique: false};
@@ -67,9 +67,8 @@ export class AjoutAnimalComponent implements OnInit {
     };
     this.validerTout();
     if (this.canInsert()) {
-this.communicationService.insertAnimal(animal).subscribe(() => {
+      this.communicationService.insertAnimal(animal).subscribe(() => {
       alert("animal ajoute!");
-
       const success: HTMLElement | null = document.getElementById("success");
       if (success !== null) {
         success.style.display = "block";
@@ -96,15 +95,15 @@ this.communicationService.insertAnimal(animal).subscribe(() => {
     this.erreur.nom = !this.validate.validateInput(this.animal.nom!);
   }
   public validerNumero(): void {
-    this.erreur.numero = !this.validate.validateInput(this.animal.numero!) ||
-    !this.validate.validateInput(this.animal.numero);
+    console.dir();
+    this.erreur.numero = !this.validate.validateInput(this.animal.numero!);
   }
   public validerEtat(): void {
-    this.erreur.etat = !this.validate.validateInput(this.animal.nom!);
+    this.erreur.etat = !this.validate.validateSelect(this.animal.etatActuel);
   }
   public validerDateInscriptionApresNaissance(): void {
     this.erreur.naissanceApresInscription =
-    !this.validate.validateInscripAfterBirth(this.animal.dateInscription!, this.animal.dateNaissance!);
+    !this.validate.validateInscripAfterBirth(this.animal.dateInscription, this.animal.dateNaissance);
   }
 
   public validerNoAnimal(): void {
@@ -124,20 +123,22 @@ this.communicationService.insertAnimal(animal).subscribe(() => {
   }
 
   public validerTout(): void {
+    this.validerNumero();
     this.validateNoProprio();
     this.validateNoClinique();
     this.validateDescription();
     this.validerNoAnimal();
     this.validerDateInscriptionApresNaissance();
     this.validerType();
+    console.dir(this.animal.etatActuel);
     this.validerDateInscription();
     this.validerDateNaissance();
     this.validerEtat();
     this.validerNom();
   }
   public canInsert(): boolean {
-    return this.erreur.nom && this.erreur.numero && this.erreur.clinique &&
-      this.erreur.dateInscription && this.erreur.dateNaissance && this.erreur.naissanceApresInscription &&
-      this.erreur.description && this.erreur.etat && this.erreur.type && this.erreur.numeroReplique && this.erreur.proprio;
+    return !(this.erreur.nom || this.erreur.numero || this.erreur.clinique ||
+      this.erreur.dateInscription || this.erreur.dateNaissance || this.erreur.naissanceApresInscription ||
+      this.erreur.description || this.erreur.etat || this.erreur.type || this.erreur.numeroReplique || this.erreur.proprio);
   }
 }
