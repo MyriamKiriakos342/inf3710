@@ -125,10 +125,9 @@ export class DatabaseController {
                             cout: prescription.cout,
                             numeroExamen: prescription.numeroexamen,
                             numeroAnimal: prescription.numeroanimal,
-                            qteTraitement: prescription.qteTraitement,
-                            dateDebut: prescription.dateDebut,
-                            dateFin: prescription.dateFin,
-
+                            qteTraitement: prescription.qtetraitement,
+                            dateDebut: prescription.datedebut,
+                            dateFin: prescription.datefin,
                         }));
                     res.json(prescriptions);
                 })
@@ -173,11 +172,14 @@ export class DatabaseController {
                 })
             });
 
-        router.post("/animal/calculateBill/:animalNo/:cliniqueNo",
+        router.post("/animal/calculateBill",
                     (req: Request, res: Response, next: NextFunction) => {
-                this.databaseService.calculateBill(req.params.animalNo, req.params.cliniqueNo).then((result: pg.QueryResult) => {
+                        console.dir(req.body);
+                this.databaseService.calculateBill(req.body as Animal).then((result: pg.QueryResult) => {
                     res.json(result.rows[0].sum);
-                })
+                }).catch((e: Error) => {
+                    console.error(e.stack);
+                    });
             });
 
         return router;

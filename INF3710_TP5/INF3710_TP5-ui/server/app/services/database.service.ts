@@ -69,13 +69,15 @@ export class DatabaseService {
         ;`);
 
     }
-    public async calculateBill(animalNo: string, cliniqueNumero: string): Promise<pg.QueryResult> {
+    public async calculateBill(animal: Animal): Promise<pg.QueryResult> {
         const VALUES: string[] = [
-            animalNo,
-            cliniqueNumero,
+            animal.numero,
+            animal.cliniqueNumero,
         ];
 
-        return this.pool.query(`SELECT SUM(cout) FROM vetdb.traitement WHERE numero IN (SELECT numerotraitement IN vetdb.prescription WHERE numeroanimal=($1)) AS sum);`, VALUES);
+        return this.pool.query(`SELECT SUM(cout) AS sum FROM vetdb.traitement WHERE numero IN (SELECT numerotraitement FROM vetdb.prescription WHERE numeroanimal=($1) 
+                                AND numeroanimal IN (SELECT numero FROM vetdb.animal WHERE cliniquenumero=($2) )) ;`,
+                                VALUES);
     }
 
     public async createAnimal(animal: Animal): Promise<pg.QueryResult> {

@@ -13,18 +13,20 @@ import { CommunicationService } from "../communication.service";
 export class TraitementComponent implements OnInit {
   public longueurMax: number = 15;
   public name: string;
+  public cout: number;
   public prescriptions: Prescription[];
   public constructor(private communicationService: CommunicationService,
                      private route: ActivatedRoute) { }
 
   public ngOnInit(): void {
-      //console.dir(this.route.snapshot.paramMap);
       this.communicationService.getAnimalByKey(this.route.snapshot.paramMap.get("animalId")!,
                                                this.route.snapshot.paramMap.get("cliniqueId")!).subscribe((animal: Animal) => {
                                                  this.name = animal.nom;
                                                  this.communicationService.getTraitementsByAnimals(animal).subscribe((prescriptions: Prescription[]) => {
       this.prescriptions = prescriptions;
-      // console.log("prescriptions ", this.prescriptions); 
+    });
+                                                 this.communicationService.getBill(animal).subscribe((cout: number) => {
+                                                  this.cout = cout;
     });
          });
      }

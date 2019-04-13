@@ -82,7 +82,7 @@ export class CommunicationService {
 
     public getBill(animal: Animal): Observable<number> {
 
-        return this.http.post<number>(this.BASE_URL + "/animal/calculateBill/", animal).pipe(
+        return this.http.post<number>(this.BASE_URL + "/animal/calculateBill", animal).pipe(
             catchError(this.handleError<number>()),
         );
     }
