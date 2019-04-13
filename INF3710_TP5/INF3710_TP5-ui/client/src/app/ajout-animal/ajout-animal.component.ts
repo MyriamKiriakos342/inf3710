@@ -62,11 +62,15 @@ export class AjoutAnimalComponent implements OnInit {
       numero: "A" + this.animal.numero,
     };
 
-    console.dir(animal);
     this.communicationService.insertAnimal(animal).subscribe(() => {
-      alert("animal ajoute!");
+      const success: HTMLElement | null = document.getElementById("success");
+      if (success !== null) {
+        success.style.display = "block";
+        setTimeout(() => {
+          success.style.display = "none";
+        },         3000);
+      }
       this.communicationService.getAnimals().subscribe((animals: Animal[]) => {
-        console.dir(animals);
       });
     });
   }

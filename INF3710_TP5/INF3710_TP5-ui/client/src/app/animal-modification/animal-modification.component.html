@@ -1,8 +1,11 @@
 <div id="animal">
   <h1> Formulaire de Modification d'animal </h1>
 
-  <h3> Le numero {{animal.numero}} et le numero de clinique {{animal.cliniqueNumero}} ne peuvent etre modifes</h3>
+  <div id="success">
+      <p>L'animal a bien ete ajoute!</p> 
+  </div>
 
+  <h3> Le numero {{animal.numero}} et le numero de clinique {{animal.cliniqueNumero}} ne peuvent etre modifes</h3>
   <form>
       <label for="proprietaireNumero">Entrez le numero du proprietaire : </label>
       <select name="proprietaireNumero" id="proprietaireNumero" [(ngModel)]="animal.proprietaireNumero">

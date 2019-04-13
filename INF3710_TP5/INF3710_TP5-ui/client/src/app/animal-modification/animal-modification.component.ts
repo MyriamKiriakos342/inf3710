@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Animal } from "../../../../common/tables/Animal";
 import { Clinique } from "../../../../common/tables/Clinique";
 import { Proprietaire } from "../../../../common/tables/Proprietaire";
@@ -16,8 +16,7 @@ export class AnimalModificationComponent implements OnInit {
   public proprietaires: Proprietaire[] = [];
 
   public constructor(private communicationService: CommunicationService,
-                     private route: ActivatedRoute,
-                     private router: Router) {
+                     private route: ActivatedRoute) {
                                       // tslint:disable-next-line:no-non-null-assertion
                       this.animal = {cliniqueNumero: this.route.snapshot.paramMap.get("cliniqueId")!,
                                      nom: "",
@@ -46,7 +45,13 @@ export class AnimalModificationComponent implements OnInit {
     if (this.animal.proprietaireNumero === null) { this.animal.proprietaireNumero = originalAnimal.proprietaireNumero; }
 
     this.communicationService.modifyAnimal(this.animal).subscribe((animalReceived: Animal) => {
-      alert("L'animal a ete modifie");
+      const success: HTMLElement | null = document.getElementById("success");
+      if (success !== null) {
+        success.style.display = "block";
+        setTimeout(() => {
+          success.style.display = "none";
+        },         3000);
+      }
     });
   }
 
