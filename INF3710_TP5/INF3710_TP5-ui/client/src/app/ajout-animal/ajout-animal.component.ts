@@ -4,6 +4,7 @@ import { Clinique } from "../../../../common/tables/Clinique";
 import { Proprietaire } from "../../../../common/tables/Proprietaire";
 import { CommunicationService } from "../communication.service";
 import { FieldValidationService } from "../field-validation.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-ajout-animal",
@@ -21,7 +22,8 @@ export class AjoutAnimalComponent implements OnInit {
                   dateNaissance: boolean, naissanceApresInscription: boolean };
 
   public constructor(private communicationService: CommunicationService,
-                     private validate: FieldValidationService) {
+                     private validate: FieldValidationService,
+                     private router: Router) {
     this.cliniques = [];
     this.proprietaires = [];
     this.animal = {cliniqueNumero: "", nom: "", numero: "", dateInscription: null,
@@ -68,7 +70,6 @@ export class AjoutAnimalComponent implements OnInit {
     this.validerTout();
     if (this.canInsert()) {
       this.communicationService.insertAnimal(animal).subscribe(() => {
-      alert("animal ajoute!");
       const success: HTMLElement | null = document.getElementById("success");
       if (success !== null) {
         success.style.display = "block";
@@ -78,7 +79,9 @@ export class AjoutAnimalComponent implements OnInit {
       }
 
     });
-}
+  }
+    this.router.navigateByUrl("").catch(() => alert("Page introuvable"));
+
   }
   public validerType(): void {
     this.erreur.type = !this.validate.validateSelect(this.animal.type!);

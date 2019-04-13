@@ -33,8 +33,8 @@
             <td (click)=reacheminementTraitement(animal)> {{animal.type}}</td>
             <td (click)=reacheminementTraitement(animal)> {{animal.description}}</td>
             <td (click)=reacheminementTraitement(animal)> {{animal.etatActuel}}</td>
-            <td (click)=reacheminementTraitement(animal)> {{animal.dateNaissance}}</td>
-            <td (click)=reacheminementTraitement(animal)> {{animal.dateInscription}}</td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.dateNaissance}} </td>
+            <td (click)=reacheminementTraitement(animal)> {{animal.dateInscription}} </td>
             <button class="{{animal.numero}}" (click)="modifyAnimal(animal)">Modifier</button>
             <button class="{{animal.numero}}" (click)="removeAnimal(animal)">Supprimer</button>
         </tr>

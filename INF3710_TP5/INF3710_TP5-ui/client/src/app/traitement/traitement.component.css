@@ -1,5 +1,6 @@
 thead {
     font-size: 90%;
+    color: #6153CC;
   }
   
   td {
@@ -24,3 +25,10 @@ thead {
     font-size: 80%;
   }
   
+  #cost {
+    color: #21897E;
+  }
+
+  #name {
+    color: #F61067;
+  }

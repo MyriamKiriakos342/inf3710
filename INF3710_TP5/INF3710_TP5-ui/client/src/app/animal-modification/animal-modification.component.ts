@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Animal } from "../../../../common/tables/Animal";
 import { Clinique } from "../../../../common/tables/Clinique";
 import { Proprietaire } from "../../../../common/tables/Proprietaire";
@@ -16,7 +16,8 @@ export class AnimalModificationComponent implements OnInit {
   public proprietaires: Proprietaire[] = [];
 
   public constructor(private communicationService: CommunicationService,
-                     private route: ActivatedRoute) {
+                     private route: ActivatedRoute,
+                     private router: Router) {
                                       // tslint:disable-next-line:no-non-null-assertion
                       this.animal = {cliniqueNumero: this.route.snapshot.paramMap.get("cliniqueId")!,
                                      nom: "",
@@ -53,6 +54,7 @@ export class AnimalModificationComponent implements OnInit {
         },         3000);
       }
     });
+    this.router.navigateByUrl("animal").catch(() => alert("Page introuvable"));
   }
 
   public getAnimals(): void {
