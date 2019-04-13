@@ -52,7 +52,7 @@ export class DatabaseController {
                             dateInscription: animal.dateinscription,
                         }));
                     res.json(animals[0]);
-                })
+                });
             });
         router.get("/proprietaire/init",
                    (req: Request, res: Response, next: NextFunction) => {
@@ -71,7 +71,7 @@ export class DatabaseController {
                     console.error(e.stack);
                 });
             });
-                router.get("/proprietaires/:cliniqueNumero",
+        router.get("/proprietaires/:cliniqueNumero",
                            (req: Request, res: Response, next: NextFunction) => {
                             console.dir("moi aussi");
                             this.databaseService.getProprietairesByClinique(req.params.cliniqueNumero).then((result: pg.QueryResult) => {
@@ -105,7 +105,7 @@ export class DatabaseController {
                             telephone: clinique.telephone,
                         }));
                     res.json(cliniques);
-                })
+                });
             });
         router.delete("/animal/delete/:animalNo/:cliniqueNo",
                       (req: Request, res: Response, next: NextFunction) => {
@@ -113,7 +113,7 @@ export class DatabaseController {
                 res.send();
                 }
 
-                )
+                );
             });
         router.get("/traitement/:animalNo/:cliniqueNumero",
                    (req: Request, res: Response, next: NextFunction) => {
@@ -130,16 +130,15 @@ export class DatabaseController {
                             dateFin: prescription.datefin,
                         }));
                     res.json(prescriptions);
-                })
+                });
             });
 
         // ? not sure???
-        router.put("/animal/modify/",
+        router.put("/animal/modify/:animalNo/:cliniqueNumero",
                    (req: Request, res: Response, next: NextFunction) => {
-
                 this.databaseService.modifyAnimal(req.body).then((result: pg.QueryResult) => {
                     res.json(req.params.animal);
-                })
+                });
             });
 
         router.post("/animal/insert",
@@ -169,13 +168,13 @@ export class DatabaseController {
                             dateInscription: animal.dateinscription,
                         }));
                     res.send(animals);
-                })
+                });
             });
 
         router.post("/animal/calculateBill",
                     (req: Request, res: Response, next: NextFunction) => {
                         console.dir(req.body);
-                this.databaseService.calculateBill(req.body as Animal).then((result: pg.QueryResult) => {
+                        this.databaseService.calculateBill(req.body as Animal).then((result: pg.QueryResult) => {
                     res.json(result.rows[0].sum);
                 }).catch((e: Error) => {
                     console.error(e.stack);

@@ -1,9 +1,7 @@
 import { Component, NgModule, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatDialog, MatDialogConfig } from "@angular/material";
 import { Router } from "@angular/router";
 import { Animal } from "../../../../common/tables/Animal";
-import { AnimalModificationComponent } from "../animal-modification/animal-modification.component";
 import { CommunicationService } from "../communication.service";
 @NgModule({
   imports: [FlexLayoutModule],
@@ -16,7 +14,7 @@ import { CommunicationService } from "../communication.service";
 
 export class AnimalComponent implements OnInit {
 
-  public constructor(private communicationService: CommunicationService, private route: Router, private dialog: MatDialog) {
+  public constructor(private communicationService: CommunicationService, private router: Router) {
     this.animals = [];
   }
   public longueurMax: number = 15;
@@ -61,19 +59,12 @@ export class AnimalComponent implements OnInit {
     this.getAnimals();
   }
   public reacheminementTraitement(animal: Animal): void {
-    this.route.navigateByUrl("/traitement/" + animal.numero + "/" + animal.cliniqueNumero).catch((erreur: unknown) => {
+    this.router.navigateByUrl("/traitement/" + animal.numero + "/" + animal.cliniqueNumero).catch((erreur: unknown) => {
         return console.dir("reacheminementTraitement ", erreur);
       });
   }
   public modifyAnimal(animal: Animal): void {
-    // this.communicationService.modifyAnimal(animal: Animal);
-    const dialogConfig: MatDialogConfig = new MatDialogConfig();
-    dialogConfig.data = {animal: animal};
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    this.dialog.open(AnimalModificationComponent, dialogConfig);
+    this.router.navigateByUrl("/modification/" + animal.numero + "/" + animal.cliniqueNumero).catch(() => alert("Page introuvable"));
   }
 
   public removeAnimal(animal: Animal): void {

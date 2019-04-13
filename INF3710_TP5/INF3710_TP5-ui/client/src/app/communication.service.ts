@@ -65,7 +65,7 @@ export class CommunicationService {
     }
 
     public modifyAnimal(animal: Animal): Observable<Animal> {
-        return this.http.put<Animal>(this.BASE_URL + "/animal/modify/", animal).pipe(
+        return this.http.put<Animal>(this.BASE_URL + "/animal/modify/" + animal.numero + "/" + animal.cliniqueNumero, animal).pipe(
             catchError(this.handleError<Animal>()),
             );
     }

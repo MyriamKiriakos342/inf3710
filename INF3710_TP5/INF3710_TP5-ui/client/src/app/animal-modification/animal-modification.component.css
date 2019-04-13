@@ -1,0 +1,22 @@
+label {
+    margin-right: 10px;
+    display: inline-block;
+    width: 300px;
+    text-align: right
+}
+
+input, select, textarea, button {
+    border-radius: 10px !important;
+}
+
+form {
+    margin-right: 200px;
+}
+
+#animal {
+    width: 700px;
+    margin-left: 30%;
+}
+
+
+
